@@ -1,5 +1,5 @@
 EXEC = main.exe
-SOURCES = main.cpp inout.cpp camera.cpp light.cpp pixel.cpp sphere.cpp position.cpp scene.cpp screen.cpp shape.cpp 
+SOURCES = main.cpp camera.cpp light.cpp pixel.cpp sphere.cpp scene.cpp screen.cpp shape.cpp 
 OBJECTS = $(SOURCES:.cpp=.o)
 CC = g++
 CFLAGS = -Wall -g -Wextra -Werror -std=c++11

@@ -10,7 +10,10 @@ class Shape
 		virtual ~Shape();
 
 	private:
-		Position _position;
+		Position _center;
+		Color _color;
+		double _reflection;
+
 };
 
 #endif

@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include "screen.hpp"
 #include "light.hpp"
 #include "shape.hpp"
@@ -13,17 +14,16 @@ class Scene
 	public:
 		Scene();
 		virtual ~Scene();
-		int load_scene(std::string scene_name);
-		
-		/* Je suis entrain de me demander si on peut faire une factory dans laquelle on va pouvoir parser le fichier et creer les instances */
-
-		Camera getCamera() const& { return *(_camera); }
-		Screen getScreen() const& { return *(_screen); }
-		Light get_light() const& { return *(_light); }
+		int loadScene(std::string scene_name);
+		Camera getCamera() const { return (_camera); }
+		Screen getScreen() const { return *(_screen); }
+		Light getLight() const { return *(_light); }
+		std::map<std::string, std::vector<double>> parseShape(std::string line);
+		std::vector<double> parseInt(std::string line);
 
 
 	private:
-		Camera* _camera;
+		Camera _camera;
 		Screen* _screen;
 		Light* _light;
 		std::vector<Shape*> _shapes;

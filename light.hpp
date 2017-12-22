@@ -7,11 +7,12 @@
 class Light
 {
 	public:
-		Light(int x, int y, int z);
+		Light(int x, int y, int z, int r, int g, int b);
 		~Light();
 
 	private:
 		Position _position;
+		Color _color;
 };
 
 #endif

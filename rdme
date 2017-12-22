@@ -1,0 +1,45 @@
+int Scene::loadScene(std::string scene_name)
+{
+	// if(scene_name == NULL)
+	// 	return error("[Scene::load_scene]","file null");
+
+	std::ifstream reader;
+	reader.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
+	try
+	{	
+		std::string line;
+		reader.open(scene_name.c_str());
+		// while(!reader.eof())
+		while(getline(reader,line,'\n'))
+		{
+			// reader.clear();
+			// getline(reader,line,'\n');
+			if(line.empty())
+				continue;
+
+			while(line.front() == ' ')
+				line.pop_back();
+
+			if(line.empty() || line.front() == '#')
+				continue;
+
+			// std::vector<int> v = parseInt(line);
+			// for (std::vector<int>::iterator i = v.begin(); i != v.end(); ++i)
+			// {
+			// 	std::cout << *(i) << std::endl;
+			// }
+				std::cout << line << std::endl;
+
+		}
+		reader.close();
+
+	}catch(std::ifstream::failure &e)
+	{	
+		// perror(errno);
+		// std::cout << strerror(errno)<< std::endl;
+		std::cout << e.what() << std::endl;
+		return error("[Scene::load_scene]","opening/reading/closing file");
+	}
+	return 0;
+}
