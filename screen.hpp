@@ -1,7 +1,8 @@
 #ifndef __SCREEN_H__
 #define __SCREEN_H__
 
-#include "util.hpp"
+#include "position.hpp"
+#include "color.hpp"
 
 #define TOP_LEFT 0
 #define TOP_RIGHT 1

@@ -2,7 +2,8 @@
 #define __LIGHT_H__
 
 
-#include "util.hpp"
+#include "color.hpp"
+#include "position.hpp"
 
 class Light
 {

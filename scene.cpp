@@ -25,14 +25,12 @@ int Scene::loadScene(std::string scene_name)
 
 	int line_number = 0;
 	try
-	{	
+	{
 		std::string line;
 		reader.open(scene_name.c_str());
 		// while(!reader.eof())
 		while(!getline(reader,line,'\n').eof())
 		{
-			double x, y, z;
-			int r, g, b;
 
 			if(line.empty())
 				continue;
@@ -43,14 +41,6 @@ int Scene::loadScene(std::string scene_name)
 			if(line.empty() || line.front() == '#')
 				continue;
 
-
-			// switch(line_number)
-			// {
-			// 	case 0:	
-			// 		reader >> x >> y >> z;
-					
-			// 		break; 
-			// }
 			if(line_number < 7)
 			{
 				std::vector<double> v = parseInt(line);
@@ -61,8 +51,8 @@ int Scene::loadScene(std::string scene_name)
 					std::cout << line << std::endl;
 			}else
 			{
-				std::map<std::string, std::vector<double>> m = parseShape(line); 
-				
+				std::map<std::string, std::vector<double>> m = parseShape(line);
+
 
 				for (std::map<std::string, std::vector<double>>::iterator it = m.begin(); it != m.end(); ++it)
 				{
@@ -76,12 +66,12 @@ int Scene::loadScene(std::string scene_name)
 			}
 
 			line_number ++;
-				
+
 		}// avoir pourquoi il ne lit pas la derniere ligne
 		reader.close();
 
 	}catch(std::ifstream::failure &e)
-	{	
+	{
 		// perror(errno);
 		// std::cout << strerror(errno)<< std::endl;
 		if(reader.eof() != 1) // parce que getline lance une exception lors de la fin du fichier
@@ -103,12 +93,12 @@ std::vector<double> Scene::parseInt(std::string line)
 	std::vector<double> return_value;
 	std::string::size_type str;
 	// il faut traiter les exceptions (invalid_argument & out_of_range)
-	while(line.back() == ' ') // on enleve tous les espace qui se situe a la fin de note string 	
+	while(line.back() == ' ') // on enleve tous les espace qui se situe a la fin de note string
 		line.pop_back();
 
 	while(str != std::string::npos)
 	{
-		while(line.front() == ' ') 
+		while(line.front() == ' ')
 			line = line.substr(1);
 		str = line.find(' ');
 		return_value.push_back(std::stol(line.substr(0, str)));
@@ -140,4 +130,3 @@ std::map<std::string, std::vector<double>> Scene::parseShape(std::string line) /
 
 // 	return return_value;
 // }
-

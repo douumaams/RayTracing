@@ -2,12 +2,13 @@
 #define __SPHERE_HPP__
 
 #include "util.hpp"
+#include "shape.hpp"
 
-class Sphere
+class Sphere : public Shape
 {
 	public:
-		Light(int x, int y, int z, int r, int g, int b);
-		~Light();
+		Sphere(int x, int y, int z, int r, int g, int b, int reflection, int radius);
+		~Sphere();
 
 	private:
 		int _radius;
