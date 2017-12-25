@@ -1,16 +1,17 @@
 #ifndef __SHAPE_HPP__
 #define __SHAPE_HPP__
 
-#include "util.hpp"
+#include "point3D.hpp"
+#include "color.hpp"
 
 class Shape
 {
 	public:
-		Shape(int x = 0, int y = 0, int z = 0);
+		Shape(const Point3D& p,const Color& c);
 		virtual ~Shape();
 
 	private:
-		Position _center;
+		Point3D _center;
 		Color _color;
 		double _reflection;
 

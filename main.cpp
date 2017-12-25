@@ -7,14 +7,23 @@
 #include "light.hpp"
 #include "shape.hpp"
 #include "camera.hpp"
+#include "point3D.hpp"
 
 using namespace std;
 
 int main()
 {
-	Scene scene;
+	Point3D p1(2,2,2), p2(5,5,5);
 
-	scene.loadScene("./scenes/scene1.sc");
+
+	Point3D p3(p1+p2);
+	p3 = p2;
+	
+	cout << p3 <<endl;
+
+	// Scene scene;
+
+	// scene.loadScene("./scenes/scene1.sc");
 	// vector<int> values = scene.parseInt("     100         100   132   0  "); /// a revoir toute la fonction
 
 	// for(vector<int>::iterator it = values.begin(); it !=values.end(); ++it)

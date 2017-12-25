@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <utility>
 #include "screen.hpp"
 #include "light.hpp"
 #include "shape.hpp"
@@ -15,15 +16,16 @@ class Scene
 		Scene();
 		virtual ~Scene();
 		int loadScene(std::string scene_name);
-		Camera getCamera() const { return (_camera); }
+		Camera getCamera() const { return *(_camera); }
 		Screen getScreen() const { return *(_screen); }
 		Light getLight() const { return *(_light); }
-		std::map<std::string, std::vector<double>> parseShape(std::string line);
+		// std::map<std::string, std::vector<double>> parseShape(std::string line);
+		std::pair<std::string, std::vector<double>> parseShape(std::string line);
 		std::vector<double> parseInt(std::string line);
 
 
 	private:
-		Camera _camera;
+		Camera* _camera;
 		Screen* _screen;
 		Light* _light;
 		std::vector<Shape*> _shapes;
