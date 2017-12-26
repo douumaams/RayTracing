@@ -1,6 +1,6 @@
 #include "shape.hpp"
 
-Shape::Shape(const Point3D& p, const Color& c): _center(p), _color(c)
+Shape::Shape(const Point3D& p, const Color& c, const double reflection): _center(p), _color(c), _reflection(reflection)
 {}
 
 Shape::~Shape(){};

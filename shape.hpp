@@ -7,7 +7,7 @@
 class Shape
 {
 	public:
-		Shape(const Point3D& p,const Color& c);
+		Shape(const Point3D& p, const Color& c, const double reflection);
 		virtual ~Shape();
 
 	private:
