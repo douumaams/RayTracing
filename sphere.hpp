@@ -10,6 +10,10 @@ class Sphere : public Shape
 		Sphere(const Point3D& p, const Color& c, int reflection, int radius);
 		~Sphere();
 
+		Point3D getCenter();
+		int getRadius();
+		
+
 	private:
 		int _radius;
 };

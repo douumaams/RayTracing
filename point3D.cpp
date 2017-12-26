@@ -26,7 +26,5 @@ Point3D operator+(const Point3D& p1, const Point3D& p2)
 std::ostream& operator<<(std::ostream& os, const Point3D& p)
 {
 	os << p._x << " " << p._y << " " << p._z;
-	return os; 
+	return os;
 }
-
-

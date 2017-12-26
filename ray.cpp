@@ -1,38 +1,76 @@
-/*
-- fonction qui renvoie la position 3D du pixel en fonction de sa position 2D "Position getPosition(int x, int y)"
-- pour chaque pixel tracer un rayon issue de la camera: Ray drawRayFromCamera(Position pixelPos)
-si intersectionWithSphere
-  tracer un rayon issue du point d'intersection Ray drawRayFromIntersection(Position sourcePos)
-  si intersectionWithSource
-    pixel non eclaire (noir ?)
-  sinon
-    pixel eclaire
-sinon
-  couleur background
+#include "ray.hpp"
+#include <cmath>
 
+Ray::Ray(const Point3D& origin, const Point3D& direction) : _origin(origin), _direction(direction), _shapeID(-1)
+{}
 
-Ray drawRayFromCamera(int x, int y)
-creer un rayon issue de la cam allant vers le pixel
+Ray::~Ray(){}
 
-boolean intersectionWithSphere(Sphere s)
-renvoie true si le rayon intersecte la Sphere
+Ray createRay(const Point3D& origin, const Point3D& destination)
+{
+  Point3D direction(destination._x - origin._x, destination._y - origin._y, destination._z - origin._z);
 
-boolean intersectionWithSource(Source s)
-renvoie true si le rayon intersecte la source)
+  return Ray(origin, direction);
+}
 
-Ray getTangent(Sphere s, Position intersection)
-renvoie la tangente de la sphere au point d'intersection
+double intersectionWithSphere(const Sphere& sphere)
+{
+  Point3D center = sphere.getCenter();
 
-getPerpendicular(Sphere s, Ray tangent)
-renvoie la perpendiculaire à la tangente
+  double a = pow(_direction._x, 2) + pow(_direction._y, 2) + pow(_direction._z, 2);
+  double b = 2 * ( _direction._x*(_origin._x - center._x) + _direction._y*(_origin._y - center._y) + _direction._z*(_origin._z - center._z));
+  double c = pow((_origin._x - center._x), 2) + pow((_origin._y - center._y), 2) + pow((_origin._z - center._z), 2) - pow(sphere.getRadius(), 2);
 
-int getAlpha(Ray tangent, Ray perpendicular)
-revoie l'angle entre la perpendiculaire à la tangente et le rayon vers la source
+  double discriminant = pow(b, 2) -(4 * a * c);
 
-Ray drawRayFromIntersection(Position source)
-renvoie le rayon entre issue du point d'intersection allant vers la source
-*/
+  if(discriminant < 0.0)
+  {
+    return false;
+  }
+  else
+  {
+    double solution1 = ( - b - sqrt(discriminant) ) / (2 * a);
+    double solution2 = ( - b + sqrt(discriminant) ) / (2 * a);
+    std::cout << "solution1 = " << solution1 << std::endl;
+    std::cout << "solution2 = " << solution2 << std::endl;
 
-/* Scene
-pour chaque pixel de l'ecran calculer sa couleur et l'écrire dans le fichier ppm
-*/
+    if(solution1 >= 0.0) // t >= 0
+    {
+      std::cout << "true" << std::endl;
+      return solution1;
+    }
+    else
+    {
+      if(solution2 >= 0.0) // t >= 0
+      {
+        std::cout << "true" << std::endl;
+        return solution2;
+      }
+      else
+      {
+        std::cout << "false" << std::endl;
+        return -1.0;
+      }
+    }
+
+  }
+
+  /*if(discriminant == 0.0)
+  {
+    double solution = - b / (2 * a);
+    return true;
+  }
+  if(discriminant > 0.0)
+  {
+    double solution = ( - b - sqrt(discriminant) ) / (2 * a);
+    return true;
+  }*/
+
+}
+
+Ray createRay(const Point3D& origin, const Point3D& destination)
+{
+  Point3D direction(destination._x - origin._x, destination._y - origin._y, destination._z - origin._z);
+
+  return Ray(origin, direction);
+}
