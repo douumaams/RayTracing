@@ -1,8 +1,5 @@
 #include "color.hpp"
 
-Color::Color(int r, int g, int b) : _r(r), _g(g), _b(b)
-{
+Color::Color(Color const& c):r(c.r), g(c.g), b(c.b) {}
 
-}
-
-Color::~Color(){}
+Color::Color(int rr, int gg, int bb): r(rr), g(gg), b(bb) {}
