@@ -5,6 +5,7 @@
 #include "vector3D.hpp"
 #include "light.hpp"
 #include "sphere.hpp"
+#include <ostream>
 
 // ray definit par un point d'origine (position 3D) et une direction (vecteur 3D)
 class Ray
@@ -23,16 +24,18 @@ class Ray
     double solveEquation(const Sphere& sphere, double discriminant);*/
 
     // renvoie le point d'intersection ou -1 sinon
-    friend double intersectionWithSphere(const Sphere& sphere);
+    double intersectionWithSphere(const Sphere& sphere);
     bool intersectionWithSource(const Light& source);
 
-    friend static Ray createRay(const Point3D& origin, const Point3D& arrival);
+    static Ray* createRay(const Point3D& origin, const Point3D& arrival);
     //Ray createRayFromCamera(const Point3D& cameraPos, const Pixel& pixel);
     Ray getTangent(const Sphere& sphere, const Point3D& intersection);
     Ray getPerpendicular(const Sphere& sphere, const Ray& tangent);
     //Ray createRayFromIntersection(const Point3D& source);
 
     double getAngle(const Ray& tangent, const Ray& perpendicular);
+
+    friend std::ostream& operator<<(std::ostream& os, const Ray& ray);
 };
 
 #endif

@@ -13,6 +13,9 @@ class Point3D
 		Point3D(int xx, int yy, int zz);
 		~Point3D();
 		double getNorm() const { return sqrt(pow(_x,2)+pow(_y,2)+pow(_z,2)); }
+		double getX() const {return _x;};
+		double getY() const {return _y;};
+		double getZ() const {return _z;};
 
 	friend Point3D operator-(const Point3D& p1, const Point3D& p2);
 	friend Point3D operator+(const Point3D& p1, const Point3D& p2);

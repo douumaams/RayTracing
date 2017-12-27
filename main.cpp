@@ -14,15 +14,29 @@ using namespace std;
 
 int main()
 {
-	Point3D p1(2,2,2), p2(5,5,5);
-	Vector3D v1(5,5,5);
-
+	Point3D p1(2,2,2), p2(5,5,15);
+	Vector3D v1(1,0,0);
+	Vector3D v2(10,0,0);
+	v1.multiply(10);
+	cout << v1 << endl;
+	v1.divide(10);
+	cout << v1 << endl;
 
 	Point3D p3(p1+p2);
 	p3 = p2;
 
+
 	Ray ray(p1, v1);
-	cout << p3 <<endl;
+	int radius = 10;
+	int reflection = 1;
+	Point3D center(100,100,100);
+	Color color(255,255,255);
+	Sphere sphere(center, color, reflection, radius);
+	Ray* r = Ray::createRay(p1, p2);
+	cout << *r;
+	double result = (*r).intersectionWithSphere(sphere);
+	cout << result << endl;
+	//cout << p3 <<endl;
 
 	// Scene scene;
 

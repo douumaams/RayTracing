@@ -1,31 +1,45 @@
 #include "ray.hpp"
 #include <cmath>
+#include <iostream>
 
-Ray::Ray(const Point3D& origin, const Vector3D& direction) : _origin(origin), _direction(direction), _shapeID(-1)
+Ray::Ray(const Point3D& origin, const Vector3D& direction) :
+_origin(origin), _direction(direction), _shapeID(-1)
 {}
 
 Ray::~Ray(){}
 
-Ray Ray::createRay(const Point3D& origin, const Point3D& arrival)
+Ray* Ray::createRay(const Point3D& origin, const Point3D& arrival)
 {
-  Vector3D direction(arrival._x - origin._x, arrival._y - origin._y, arrival._z - origin._z);
-  std::cout << "x : " << direction._x << "y : " << direction._y << "z : " << direction._z << std::endl;
-  return Ray(origin, direction);
+  //std::cout << arrival.getX() << std::endl;
+  //std::cout << origin.getX() << std::endl;
+  double dx = arrival.getX() - origin.getX();
+    //std::cout << dx << std::endl;
+  double dy = arrival.getY() - origin.getY();
+    //std::cout << dy << std::endl;
+  double dz = arrival.getZ() - origin.getZ();
+    //std::cout << dz << std::endl;
+  Vector3D direction(dx, dy, dz);
+  //Vector3D direction(arrival - origin);
+  //std::cout << "x : " << direction.getX() << " y : " << direction.getY() << " z : " << direction.getZ() << std::endl;
+  //Ray* ray = new Ray(origin, direction);
+  return new Ray(origin, direction);
 }
 
 double Ray::intersectionWithSphere(const Sphere& sphere)
 {
-  Point3D center = sphere.getCenter();
+  const Point3D& center = sphere.getCenter();
 
-  double a = pow(_direction._x, 2) + pow(_direction._y, 2) + pow(_direction._z, 2);
-  double b = 2 * ( _direction._x*(_origin._x - center._x) + _direction._y*(_origin._y - center._y) + _direction._z*(_origin._z - center._z));
-  double c = pow((_origin._x - center._x), 2) + pow((_origin._y - center._y), 2) + pow((_origin._z - center._z), 2) - pow(sphere.getRadius(), 2);
+  double a = pow(_direction.getX(), 2) + pow(_direction.getY(), 2) + pow(_direction.getZ(), 2);
+  double b = 2 * ( _direction.getX()*(_origin.getX() - center.getX()) + _direction.getY()*(_origin.getY() - center.getY()) + _direction.getZ()*(_origin.getZ() - center.getZ()));
+  double c = pow((_origin.getX() - center.getX()), 2) + pow((_origin.getY() - center.getY()), 2) + pow((_origin.getZ() - center.getZ()), 2) - pow(sphere.getRadius(), 2);
 
-  double discriminant = pow(b, 2) -(4 * a * c);
+  double discriminant = pow(b, 2) - (4 * a * c);
 
   if(discriminant < 0.0)
   {
-    return false;
+    std::cout << "false" << std::endl;
+    std::cout << "discriminant < 0.0" << std::endl;
+    return -1.0;
   }
   else
   {
@@ -37,6 +51,7 @@ double Ray::intersectionWithSphere(const Sphere& sphere)
     if(solution1 >= 0.0) // t >= 0
     {
       std::cout << "true" << std::endl;
+      std::cout << "solution1 >= 0.0" << std::endl;
       return solution1;
     }
     else
@@ -44,11 +59,13 @@ double Ray::intersectionWithSphere(const Sphere& sphere)
       if(solution2 >= 0.0) // t >= 0
       {
         std::cout << "true" << std::endl;
+        std::cout << "solution2 >= 0.0" << std::endl;
         return solution2;
       }
       else
       {
         std::cout << "false" << std::endl;
+        std::cout << "solution1 <= 0.0 && solution2 <= 0.0" << std::endl;
         return -1.0;
       }
     }
@@ -66,4 +83,10 @@ double Ray::intersectionWithSphere(const Sphere& sphere)
     return true;
   }*/
 
+}
+
+std::ostream& operator<<(std::ostream& os, const Ray& ray)
+{
+  os << "Origin : " << ray._origin << " Direction : " << ray._direction << std::endl;
+  return os;
 }

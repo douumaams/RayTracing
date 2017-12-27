@@ -10,7 +10,7 @@ class Shape
 		Shape(const Point3D& p, const Color& c, const double reflection);
 		virtual ~Shape();
 
-		const Point3D& getCenter();
+		const Point3D& getCenter() const {return _center;};
 
 	private:
 		Point3D _center;

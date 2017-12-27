@@ -5,7 +5,7 @@ Shape::Shape(const Point3D& p, const Color& c, const double reflection): _center
 
 Shape::~Shape(){}
 
-const Point3D& Shape::getCenter()
+/*const Point3D& Shape::getCenter()
 {
   return _center;
-}
+}*/

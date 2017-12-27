@@ -10,7 +10,7 @@ class Sphere : public Shape
 		Sphere(const Point3D& p, const Color& c, int reflection, int radius);
 		~Sphere();
 
-		int getRadius();
+		int getRadius() const {return _radius;};
 
 
 	private:
