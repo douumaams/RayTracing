@@ -12,7 +12,7 @@ private: // soit on met qu'un pixel est un point ou on fait une compostion a nou
 	
 public:
 	Pixel(const Point3D& p, const Color& c);
-	~Pixel();
+	~Pixel(){};
 
 	/* data */
 };

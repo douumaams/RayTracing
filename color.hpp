@@ -5,6 +5,7 @@ class Color
 {
 	int r, g, b;
 public:
+	Color() = default;
 	Color(Color const& c);
 	Color(int rr, int gg, int bb);
 	~Color(){};

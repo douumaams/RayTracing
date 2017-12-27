@@ -31,14 +31,14 @@ int main()
 	int reflection = 1;
 	Point3D center(100,100,100);
 	Color color(255,255,255);
-	Sphere sphere(center, color, reflection, radius);
+	Sphere sphere(center, color, reflection, radius); 
 	Ray* r = Ray::createRay(p1, p2);
 	cout << *r;
 	double result = (*r).intersectionWithSphere(sphere);
 	cout << result << endl;
 	//cout << p3 <<endl;
 
-	// Scene scene;
+	Scene scene("./scenes/scene1.sc");
 
 	// scene.loadScene("./scenes/scene1.sc");
 	// vector<int> values = scene.parseInt("     100         100   132   0  "); /// a revoir toute la fonction

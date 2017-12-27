@@ -1,14 +1,14 @@
 #include "camera.hpp"
 
-Camera::Camera(int x, int y, int z):_position(x,y,z)
-{
-	// _position = Point3D(x, y, z);
-}
+Camera::Camera(Point3D position, Point3D top_left, Point3D top_right, Point3D bottom_left, int horizontal_res, Color background):
+_position(position), _screen(top_left, top_right, bottom_left, horizontal_res, background)
+{}
 
-// faut voir question double---->int
-
-// Camera::Camera(const Point3D& p)
-// {
-// 	_position = p;
-// }
 Camera::~Camera(){}
+
+
+std::ostream& operator <<(std::ostream& os, const Camera& camera)
+{
+	os << camera._screen;
+	return os;
+}
