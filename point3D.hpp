@@ -9,6 +9,7 @@ class Point3D
 	private:
 		int _x, _y, _z;
 	public:
+		Point3D() = default;
 		Point3D(Point3D const& p);
 		Point3D(int xx, int yy, int zz);
 		~Point3D();

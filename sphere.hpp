@@ -6,16 +6,12 @@
 class Sphere : public Shape
 {
 	public:
-	//	Sphere(int x, int y, int z, int r, int g, int b, int reflection, int radius);
-		Sphere(const Point3D& p, const Color& c, int reflection, int radius);
-		~Sphere();
-
-		Point3D getCenter();
-		int getRadius();
-		
-
+		Sphere(const Point3D& p, const Color& c, double reflection, double radius);
+		virtual ~Sphere();		
+		double getRadius() const { return _radius; }
 	private:
-		int _radius;
+		double _radius;
+
 };
 
 #endif

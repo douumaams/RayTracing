@@ -11,8 +11,8 @@ class Light
 		Point3D _position;
 		Color _color;
 	public:
+		Light() = default;
 		Light(const Point3D& p, const Color& c);
-		Light(int x, int y, int z, int r, int g, int b);
 		~Light();
 
 };
