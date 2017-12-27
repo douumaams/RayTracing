@@ -1,19 +1,19 @@
 #include "ray.hpp"
 #include <cmath>
 
-Ray::Ray(const Point3D& origin, const Point3D& direction) : _origin(origin), _direction(direction), _shapeID(-1)
+Ray::Ray(const Point3D& origin, const Vector3D& direction) : _origin(origin), _direction(direction), _shapeID(-1)
 {}
 
 Ray::~Ray(){}
 
-Ray createRay(const Point3D& origin, const Point3D& destination)
+Ray Ray::createRay(const Point3D& origin, const Point3D& arrival)
 {
-  Point3D direction(destination._x - origin._x, destination._y - origin._y, destination._z - origin._z);
-
+  Vector3D direction(arrival._x - origin._x, arrival._y - origin._y, arrival._z - origin._z);
+  std::cout << "x : " << direction._x << "y : " << direction._y << "z : " << direction._z << std::endl;
   return Ray(origin, direction);
 }
 
-double intersectionWithSphere(const Sphere& sphere)
+double Ray::intersectionWithSphere(const Sphere& sphere)
 {
   Point3D center = sphere.getCenter();
 
@@ -66,11 +66,4 @@ double intersectionWithSphere(const Sphere& sphere)
     return true;
   }*/
 
-}
-
-Ray createRay(const Point3D& origin, const Point3D& destination)
-{
-  Point3D direction(destination._x - origin._x, destination._y - origin._y, destination._z - origin._z);
-
-  return Ray(origin, direction);
 }

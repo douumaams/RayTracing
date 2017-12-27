@@ -8,12 +8,7 @@ Sphere::Sphere(const Point3D& p, const Color& c, int reflection, int radius):Sha
 
 Sphere::~Sphere(){}
 
-/*const Point3D& getCenter()
-{
-  return _center;
-}
-
-const int getRadius()
+int Sphere::getRadius()
 {
   return _radius;
-}*/
+}

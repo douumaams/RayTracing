@@ -2,28 +2,31 @@
 #define __RAY_HPP__
 
 #include "point3D.hpp"
+#include "vector3D.hpp"
+#include "light.hpp"
+#include "sphere.hpp"
 
 // ray definit par un point d'origine (position 3D) et une direction (vecteur 3D)
 class Ray
 {
   private:
     Point3D _origin;
-    Point3D _direction;
+    Vector3D _direction;
     int _shapeID; // id de la sphere qui intersecte le rayon et -1 sinon
 
   public:
 
-    Ray(Point3D origin, Point3D direction);
+    Ray(const Point3D& origin, const Vector3D& direction);
     ~Ray();
 
     /*double discriminant(const Sphere& sphere);
     double solveEquation(const Sphere& sphere, double discriminant);*/
 
     // renvoie le point d'intersection ou -1 sinon
-    double intersectionWithSphere(const Sphere& sphere);
-    bool intersectionWithSource(const Source& source);
+    friend double intersectionWithSphere(const Sphere& sphere);
+    bool intersectionWithSource(const Light& source);
 
-    Ray createRay(const Point3D& p1, const Point3D& p2);
+    friend static Ray createRay(const Point3D& origin, const Point3D& arrival);
     //Ray createRayFromCamera(const Point3D& cameraPos, const Pixel& pixel);
     Ray getTangent(const Sphere& sphere, const Point3D& intersection);
     Ray getPerpendicular(const Sphere& sphere, const Ray& tangent);
