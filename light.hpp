@@ -15,6 +15,9 @@ class Light
 		Light(const Point3D& p, const Color& c);
 		~Light();
 
+		Point3D getPosition() const { return _position;};
+		Color getColor() const { return _color;};
+
 };
 
 #endif

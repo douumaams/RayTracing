@@ -22,12 +22,13 @@
 
 class Scene
 {
-		
+
 
 	private:
 		Camera _camera;
 		Light _light;
 		std::vector<Shape> _shapes;
+		Screen _screen;
 
 		//void parseLine();
 		int error(std::string function, std::string msg);
@@ -39,6 +40,8 @@ class Scene
 		int saveScene(const std::string& scene_name);
 		Camera getCamera() const { return _camera; }
 		Light getLight() const { return (_light); }
+
+		void rendering();
 		// std::map<std::string, std::vector<double>> parseShape(std::string line);
 		std::pair<std::string, std::vector<double>> parseShape(std::string line);
 		std::vector<double> parseInt(std::string line);

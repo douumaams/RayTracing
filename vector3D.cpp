@@ -18,14 +18,24 @@ Vector3D::~Vector3D(){}
 
 
 
-Vector3D operator-(const Vector3D& p1, const Vector3D& p2)
+Vector3D operator-(const Vector3D& v1, const Vector3D& v2)
 {
-	return Vector3D(p1._x - p2._x, p1._y - p2._y, p1._z - p2._z);
+	return Vector3D(v1._x - v2._x, v1._y - v2._y, v1._z - v2._z);
 }
 
-Vector3D operator+(const Vector3D& p1, const Vector3D& p2)
+Vector3D operator+(const Vector3D& v1, const Vector3D& v2)
 {
-	return Vector3D(p1._x + p2._x, p1._y + p2._y, p1._z + p2._z);
+	return Vector3D(v1._x + v2._x, v1._y + v2._y, v1._z + v2._z);
+}
+
+Vector3D operator*(const Vector3D& v1, const Vector3D& v2)
+{
+	return Vector3D(v1._x * v2._x, v1._y * v2._y, v1._z * v2._z);
+}
+
+double Vector3D::scalarProduct(const Vector3D& v)
+{
+	return (this->_x * v.getX()) + (this->_y * v.getY()) + (this->_z * v.getZ());
 }
 
 /*Vector3D operator*(const Vector3D& v1, const double factor)

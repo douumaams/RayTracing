@@ -90,3 +90,33 @@ std::ostream& operator<<(std::ostream& os, const Ray& ray)
   os << "Origin : " << ray._origin << " Direction : " << ray._direction << std::endl;
   return os;
 }
+
+double Ray::getAngle(const Ray& r)
+{
+	//_direction.normalize();
+	//r.getDirection().normalize();
+
+  double alpha = acos(_direction.scalarProduct(r.getDirection()));
+  std::cout << " alpha : " << alpha << std::endl;
+  return alpha;
+}
+
+// bool Ray::intersectionWithSource(const std::vector<Sphere> spheres)
+// {
+//   for(Sphere s : spheres)
+//   {
+//     //if(s.intersectionWithRay(this) >= 0)
+//       return true;
+//   }
+//
+//   return false;
+// }
+
+const Point3D* Ray::computeIntersection(const double t)
+{
+  double x = _origin.getX() + t * _direction.getX();
+  double y = _origin.getY() + t * _direction.getY();
+  double z = _origin.getZ() + t * _direction.getZ();
+
+  return new Point3D(x,y,z);
+}

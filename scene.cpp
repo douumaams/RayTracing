@@ -65,7 +65,7 @@ int Scene::loadScene(const std::string& scene_name)
 						top_right_corner = Point3D(v.at(0), v.at(1), v.at(2));
 						break;
 				case BOTTOM_LEFT_CORNER:
-						bottom_left_corner = Point3D(v.at(0), v.at(1), v.at(2)); 
+						bottom_left_corner = Point3D(v.at(0), v.at(1), v.at(2));
 						break;
 				case HORIZONTAL_RESOLUTION:
 						horizontal_resolution = v.at(0);
@@ -139,10 +139,10 @@ std::pair<std::string, std::vector<double>> Scene::parseShape(std::string line)
 	return make_pair(line.substr(0, str), parseInt(line.substr(str + 1)));
 }
 
-int Scene::saveScene(const std::string& scene_name)
+int Scene::saveScene(const std::string& scene_name) // pourquoi pas void ?? =)
 {
     std::ofstream os(scene_name);
-    
+
     os << "P3" << std::endl;
     os << _camera;
 
@@ -151,4 +151,15 @@ int Scene::saveScene(const std::string& scene_name)
 	return 0;
 }
 
-
+void Scene::rendering()
+{
+	/*
+	1. pour chaque pixel de l'écran creer un rayon issue de la camera
+	2. parcourir chaque sphere et verifier s'il y a une intersection (garder la sphere la plus proche)
+	3a. s'il n'y a pas d'intersection le pixel est de la couleur du background
+	3.b sinon creer un rayon entre le point d'intersection et la source
+	4. verifier l'intersection avec la source de lumière
+	5.a si pas intersectionWithSource calcul de alpha et de la couleur du pixel
+	5.b sinon pixel de couleur noir
+	*/
+}

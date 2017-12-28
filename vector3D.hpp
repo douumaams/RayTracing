@@ -18,6 +18,7 @@ class Vector3D
 		double getZ() const {return _z;};
 
 		double getNorm() const { return sqrt(pow(_x,2)+pow(_y,2)+pow(_z,2)); }
+		double scalarProduct(const Vector3D& v);
 
 		void normalize() { divide(getNorm()); };
 		void multiply(const double factor) { _x *= factor; _y *= factor; _z *= factor;};
@@ -26,8 +27,10 @@ class Vector3D
 		friend Vector3D operator-(const Vector3D& v1, const Vector3D& v2);
 		friend Vector3D operator+(const Vector3D& v1, const Vector3D& v2);
 		//friend Vector3D operator*(const Vector3D& v1, const double factor);
+		friend Vector3D operator*(const Vector3D& v1, const Vector3D& v2);
 		//friend Vector3D operator/(const Vector3D& v1, const double factor);
 		friend std::ostream& operator<<(std::ostream& os, const Vector3D& v);
+
 };
 
 #endif
