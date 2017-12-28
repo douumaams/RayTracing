@@ -3,7 +3,7 @@
 
 #include "point3D.hpp"
 #include "vector3D.hpp"
-#include "sphere.hpp"
+
 #include <ostream>
 #include <vector>
 
@@ -20,24 +20,14 @@ class Ray
     Ray(const Point3D& origin, const Vector3D& direction);
     ~Ray();
 
-    /*double discriminant(const Sphere& sphere);
-    double solveEquation(const Sphere& sphere, double discriminant);*/
-
-    // renvoie le point d'intersection ou -1 sinon
-    double intersectionWithSphere(const Sphere& sphere);
-    // bool intersectionWithSource(const std::vector<Sphere> spheres);
-
     static Ray* createRay(const Point3D& origin, const Point3D& arrival);
-    //Ray createRayFromCamera(const Point3D& cameraPos, const Pixel& pixel);
-    //Ray getTangent(const Sphere& sphere, const Point3D& intersection);
-    //Ray getPerpendicular(const Sphere& sphere, const Ray& tangent);
-    //Ray createRayFromIntersection(const Point3D& source);
+
     double getAngle(const Ray& r); // calcul l'angle entre ce vecteur et r
-    Vector3D getDirection() const {return _direction;};
-    Point3D getOrigin() const {return _origin;};
     const Point3D* computeIntersection(const double t);
 
     friend std::ostream& operator<<(std::ostream& os, const Ray& ray);
+    Vector3D getDirection() const {return _direction;};
+    Point3D getOrigin() const {return _origin;};
 };
 
 #endif

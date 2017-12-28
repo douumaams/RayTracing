@@ -82,11 +82,11 @@ int Scene::loadScene(const std::string& scene_name)
 						std::pair<std::string, std::vector<double>> shape = parseShape(line);
 						if(std::get<0>(shape) == "sphere")
 						{
-							_shapes.push_back(Sphere(Point3D(v.at(0), v.at(1), v.at(2)),
+							_shapes.push_back(std::unique_ptr<Shape>(new Sphere(Point3D(v.at(0), v.at(1), v.at(2)),
 													Color(v.at(4), v.at(5), v.at(6)),
 													v.at(7),
 													v.at(3)
-													));
+												)));
 						}
 			}
 			line_number ++;

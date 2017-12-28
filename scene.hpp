@@ -9,6 +9,7 @@
 #include "light.hpp"
 #include "shape.hpp"
 #include "camera.hpp"
+#include <memory> // for unique_ptr
 
 #define CAMERA_POSITION 0
 #define TOP_LEFT_CORNER 1
@@ -27,7 +28,7 @@ class Scene
 	private:
 		Camera _camera;
 		Light _light;
-		std::vector<Shape> _shapes;
+		std::vector<std::unique_ptr<Shape>> _shapes;
 		Screen _screen;
 
 		//void parseLine();

@@ -9,6 +9,7 @@
 #include "camera.hpp"
 #include "point3D.hpp"
 #include "ray.hpp"
+#include "sphere.hpp"
 
 using namespace std;
 
@@ -35,23 +36,21 @@ int main()
 	Sphere sphere(center, color, reflection, radius);
 	Ray* r = Ray::createRay(p1, p2);
 	cout << *r;
-	// double result = (*r).intersectionWithSphere(sphere);
-	// cout << result << endl;
 
 	ray.getAngle(ray2);
-	//cout << p3 <<endl;
+	cout << p3 <<endl;
 
-	//Scene scene("./scenes/scene1.sc");
+	Scene scene("./scenes/scene1.sc");
 
-	// scene.loadScene("./scenes/scene1.sc");
-	// vector<int> values = scene.parseInt("     100         100   132   0  "); /// a revoir toute la fonction
+	//scene.loadScene("./scenes/scene1.sc");
+	//vector<int> values = scene.parseInt("     100         100   132   0  "); /// a revoir toute la fonction
 
 	// for(vector<int>::iterator it = values.begin(); it !=values.end(); ++it)
-
- //    {
- //        cout << *it << endl;
-
- //    }
+  //
+  //   {
+  //       cout << *it << endl;
+  //
+  //   }
 
 
 	return 0;

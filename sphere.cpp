@@ -1,4 +1,5 @@
 #include "sphere.hpp"
+#include <iostream>
 
 
 Sphere::Sphere(const Point3D& p, const Color& c, double reflection, double radius):
@@ -7,10 +8,6 @@ Shape(p, c, reflection), _radius(radius)
 
 Sphere::~Sphere(){}
 
-/*int Sphere::getRadius()
-{
-  return _radius;
-}*/
 
 bool Sphere::intersectionWithRay(const Ray& ray)
 {
@@ -18,8 +15,8 @@ bool Sphere::intersectionWithRay(const Ray& ray)
   Point3D rayOrigin(ray.getOrigin());
 
   double a = pow(rayDirection.getX(), 2) + pow(rayDirection.getY(), 2) + pow(rayDirection.getZ(), 2);
-  double b = 2 * ( rayDirection.getX()*(rayOrigin.getX() - _center.getX()) + rayDirection.getY()*(rayOrigin.getY() - _center.getY()) + rayDirection.getZ()*(rayOrigin.getZ() - _center.getZ()));
-  double c = pow((rayOrigin.getX() - _center.getX()), 2) + pow((rayOrigin.getY() - _center.getY()), 2) + pow((rayOrigin.getZ() - _center.getZ()), 2) - pow(getRadius(), 2);
+  double b = 2 * ( rayDirection.getX()*(rayOrigin.getX() - getCenter().getX()) + rayDirection.getY()*(rayOrigin.getY() - getCenter().getY()) + rayDirection.getZ()*(rayOrigin.getZ() - getCenter().getZ()));
+  double c = pow((rayOrigin.getX() - getCenter().getX()), 2) + pow((rayOrigin.getY() - getCenter().getY()), 2) + pow((rayOrigin.getZ() - getCenter().getZ()), 2) - pow(getRadius(), 2);
 
   double discriminant = pow(b, 2) - (4 * a * c);
 
@@ -59,16 +56,5 @@ bool Sphere::intersectionWithRay(const Ray& ray)
     }
 
   }
-
-  /*if(discriminant == 0.0)
-  {
-    double solution = - b / (2 * a);
-    return true;
-  }
-  if(discriminant > 0.0)
-  {
-    double solution = ( - b - sqrt(discriminant) ) / (2 * a);
-    return true;
-  }*/
 
 }
