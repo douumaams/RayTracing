@@ -10,7 +10,8 @@
 #include "point3D.hpp"
 #include "ray.hpp"
 #include "sphere.hpp"
-
+#include "unityTesting.hpp"
+#include "color.hpp"
 using namespace std;
 
 int main()
@@ -35,7 +36,8 @@ int main()
 	double reflection = 0.3;
 
 	Sphere sphere1(sphereCenter, sphereColor, sphereRadius, reflection);
-	
+	Scene scene("./scenes/scene1.sc");
+	scene.saveScene("./scenes/s.ppm");
 
 
 	// Scene scene("./scenes/scene1.sc");

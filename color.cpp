@@ -1,4 +1,4 @@
-#include "color.hpp"
+	#include "color.hpp"
 
 
 Color::Color(Color const& c):_r(c._r), _g(c._g), _b(c._b) {}
@@ -37,7 +37,11 @@ Color operator/(const Color& c1, double factor)
 
 Color operator/(double factor, const Color& c1)
 {
-	return c1/factor;
+	Color returnValue;
+	returnValue._r = factor / c1._r;
+	returnValue._g = factor / c1._g;
+	returnValue._b = factor / c1._b;
+	return returnValue;
 }
 
 std::ostream& operator<<(std::ostream& os, const Color& p)
@@ -48,9 +52,11 @@ std::ostream& operator<<(std::ostream& os, const Color& p)
 
 Color& Color::operator=(const Color& c1)
 {
-	_r = c1._r;
-	_g = c1._g;
-	_b = c1._b;
-
+	if(&c1 != this)
+	{
+		_r = c1._r;
+		_g = c1._g;
+		_b = c1._b;
+	}
 	return *this;
 }

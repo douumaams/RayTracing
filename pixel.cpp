@@ -20,3 +20,10 @@ void Pixel::computeColor(const Light& light, Shape* shape, Point3D intersection)
   _color = newColor;
   std::cout << "Couleur : " << _color << std::endl;
 }
+
+std::ostream& operator <<(std::ostream& os, const Pixel& pixel)
+{
+  os << pixel._color ;
+  return os;
+}
+

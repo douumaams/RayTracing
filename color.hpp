@@ -26,7 +26,7 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& os, const Color& c);
 
-	Color& operator=(const Color& v1);
+	Color& operator=(const Color& c1);
 };
 
 
