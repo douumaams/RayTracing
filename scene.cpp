@@ -74,6 +74,7 @@ int Scene::loadScene(const std::string& scene_name)
 						break;
 				case BACKGROUND_COLOR:
 						background_color = Color(v.at(0), v.at(1), v.at(2));
+						_camera = Camera(camera_position, top_left_corner, top_right_corner, bottom_left_corner, horizontal_resolution, background_color);
 						break;
 				case LIGHT_SOURCE_POSITION:
 						_light = Light(Point3D(v.at(0), v.at(1), v.at(2)),
@@ -96,12 +97,9 @@ int Scene::loadScene(const std::string& scene_name)
 
 		}
 
-		_camera = Camera(camera_position, top_left_corner, top_right_corner, bottom_left_corner, horizontal_resolution, background_color);
 		reader.close();
 	}catch(std::ifstream::failure &e)
 	{
-		// perror(errno);
-		// std::cout << strerror(errno)<< std::endl;
 		if(reader.eof() != 1) // parce que getline lance une exception lors de la fin du fichier
 		{
 			std::cout << e.what() << std::endl;

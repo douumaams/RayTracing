@@ -16,6 +16,7 @@ private: // soit on met qu'un pixel est un point ou on fait une compostion a nou
 	Ray _raySource;*/
 
 public:
+	Pixel() = default;
 	Pixel(const Point3D& p, const Color& c);
 	~Pixel(){};
 
@@ -25,6 +26,9 @@ public:
 
 	void setPosition(const Point3D& position) { _position = position;};
 	Point3D getPosition() const {return _position;};
+
+	friend std::ostream& operator <<(std::ostream& os, const Pixel& pixel);
+
 };
 
 #endif

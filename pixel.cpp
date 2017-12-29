@@ -19,3 +19,10 @@ void Pixel::computeColor(const Light& light, const Sphere& sphere, const Point3D
   _color = newColor;
   std::cout << "Couleur : " << _color << std::endl;
 }
+
+std::ostream& operator <<(std::ostream& os, const Pixel& pixel)
+{
+  os << pixel._color ;
+  return os;
+}
+
