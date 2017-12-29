@@ -23,13 +23,10 @@
 
 class Scene
 {
-
-
 	private:
 		Camera _camera;
 		Light _light;
 		std::vector<std::unique_ptr<Shape>> _shapes;
-		Screen _screen;
 
 		//void parseLine();
 		int error(std::string function, std::string msg);
@@ -41,6 +38,11 @@ class Scene
 		int saveScene(const std::string& scene_name);
 		Camera getCamera() const { return _camera; }
 		Light getLight() const { return (_light); }
+
+		// explicit Scene();
+    // Scene(const Scene&) = delete;
+    // Scene& operator=(const Scene&) = delete;
+    // ~Scene() = default;
 
 		void rendering();
 		// std::map<std::string, std::vector<double>> parseShape(std::string line);

@@ -15,62 +15,34 @@ using namespace std;
 
 int main()
 {
-	Point3D p1(2,2,2), p2(5,5,15);
-	Vector3D v1(1,1,1);
-	Vector3D v2(-3,3,0);
-	cout << v1 << endl;
-	v1.multiply(10);
-	cout << v1 << endl;
-	v1.divide(10);
-	cout << v1 << endl;
-
-	Point3D p3(p1+p2);
-	p3 = p2;
-
-
-	Ray ray(p1, v1);
-	Ray ray2(p2, v2);
-	double radius = 10000;
-	double reflection = 1;
-	Point3D center(100,100,100);
-	Color color(255,255,255);
-	Sphere sphere(center, color, reflection, radius);
-	Ray* r = Ray::createRay(p1, p2);
-	cout << *r;
-
-	ray.getAngle(ray2);
-	cout << p3 <<endl;
-	sphere.intersectionWithRay(ray);
-	Scene scene("./scenes/scene1.sc");
-
-	Color c1(255,255,255);
-	Light l1(p1,c1);
-
-	Pixel pixel(p2, c1);
-	pixel.computeColor(l1, sphere, p3);
-
-	//scene.loadScene("./scenes/scene1.sc");
-	//vector<int> values = scene.parseInt("     100         100   132   0  "); /// a revoir toute la fonction
-
-	// for(vector<int>::iterator it = values.begin(); it !=values.end(); ++it)
+	// test createRay
+	// Point3D p1(0,0,0);
+	// Point3D p2(5,5,5);
+	// Ray* r1 = Ray::createRay(p1, p2);
+	// cout << *r1 << std::endl;
   //
-  //   {
-  //       cout << *it << endl;
+	// Point3D p3(100,100,0);
+	// Point3D p4(250,0,0);
+	// Ray* r2 = Ray::createRay(p3, p4);
+	// cout << *r2 << std::endl;
   //
-  //   }
+	// Ray* r3 = Ray::createRay(p2, p1);
+	// cout << *r3 << std::endl;
+
+	Point3D sphereCenter(90,90,60);
+	Color sphereColor(250,0,0);
+	double sphereRadius = 7;
+	double reflection = 0.3;
+
+	Sphere sphere1(sphereCenter, sphereColor, sphereRadius, reflection);
+	
+
+
+	// Scene scene("./scenes/scene1.sc");
+	// scene.rendering();
+	// scene.saveScene("test.ppm");
+
 
 
 	return 0;
 }
-
-// // string::front
-// #include <iostream>
-// #include <string>
-
-// int main ()
-// {
-//   std::string str ("test string");
-//   str.front() = 'T';
-//   std::cout << str.front() << '\n';
-//   return 0;
-// }

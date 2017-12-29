@@ -28,6 +28,7 @@ class Screen
 		int getHorizontalResultion() const {return _pixels[0].size();}
 
 		std::vector<std::vector<Pixel>> getPixels() { return _pixels;};
+		Color getBackgroundColor() const {return _background_color;};
 
 		friend std::ostream& operator <<(std::ostream& os, const Screen& screen);
 		Point3D from2Dto3D(int x, int y);

@@ -170,29 +170,97 @@ void Scene::rendering()
 	std::vector< Pixel >::iterator pixeliT;
 	//std::vector<std::unique_ptr<Shape>>::iterator shapeiT;
 
-	for (iT = _screen.getPixels().begin(); iT != _screen.getPixels().end(); iT++)
+	double t = -1;
+	std::vector<double> solutions;
+	std::vector<int> iDs;
+	int i = 0;
+	Ray* cameraRay;
+	Ray* lightRay;
+	int horizontalPos = 0;
+	int verticalPos = 0;
+	Screen camScreen = _camera.getScreen();
+
+	// on parcours chaque pixel
+	for (iT = camScreen.getPixels().begin(); iT != camScreen.getPixels().end(); iT++)
 	{
+		verticalPos = iT - camScreen.getPixels().begin();
+
 		for (pixeliT = (*iT).begin(); pixeliT != (*iT).end(); pixeliT++)
 		{
 				//std::cout << (*i).getColor() << std::endl;
-				int x = iT - _screen.getPixels().begin();
-				int y = pixeliT - (*iT).begin();
-				(*pixeliT).setPosition(_screen.from2Dto3D(x,y));
-				// Ray* cameraRay = Ray::createRay(_camera.getPosition(), (*pixeliT).getPosition());
-        //
-				// double t;
-				// std::vector<double> solutions;
-				// std::vector<int> iDs;
-				// for(int i = 0; i < _shapes.size(); i++)
-				// {
-				// 	t = _shapes.at(i).intersectionWithRay(*cameraRay);
-				// 	if(t >= 0)
-				// 	{
-				// 		solutions.push_back(t);
-				// 		iDs.push_back(shapeiT - _shapes.begin());
-				// 	}
-				// }
+				horizontalPos = pixeliT - (*iT).begin();
+				(*pixeliT).setPosition(camScreen.from2Dto3D(horizontalPos,verticalPos));
+				cameraRay = Ray::createRay(_camera.getPosition(), (*pixeliT).getPosition());
 
+				i = 0;
+				solutions.clear();
+				iDs.clear();
+				// pour chaque sphere on stocke l'intersection dans un vector et l'id de la sphere
+				for(auto& shapeiT : _shapes )
+				{
+					t = (*shapeiT).intersectionWithRay(*cameraRay);
+					if(t >= 0)
+					{
+						solutions.push_back(t);
+						iDs.push_back(i);
+					}
+					i++;
+				}
+
+				// s'il n'y a pas d'intersection le vecteur est de la couleur du background
+				if(solutions.empty())
+				{
+					pixeliT->setColor(camScreen.getBackgroundColor());
+				}
+				else
+				{
+					// sinon on garde le point d'intersection et l'iD de la sphere la plus proche
+					double bestSolution = solutions.at(0);
+					int bestID = iDs.at(0);
+
+					for(size_t j = 1; j < solutions.size(); j++)
+					{
+						if(solutions.at(j) < bestSolution)
+						{
+							bestSolution = solutions.at(j);
+							bestID = iDs.at(j);
+						}
+					}
+
+					const Point3D* pointIntersection(cameraRay->computeIntersection(bestSolution));
+					// on teste l'intersection avec la source
+					lightRay = Ray::createRay(*pointIntersection, _light.getPosition());
+					i = 0;
+					solutions.clear();
+					iDs.clear();
+					for(auto& shapeiT : _shapes )
+					{
+						t = (*shapeiT).intersectionWithRay(*lightRay);
+						if(t >= 0)
+						{
+							solutions.push_back(t);
+							iDs.push_back(i);
+						}
+						i++;
+					}
+
+					// il y a un obstacle entre la source et le point d'intersection
+					if(! solutions.empty())
+					{
+						// donc le pixel est noir
+						pixeliT->setColor(Color(0,0,0));
+					}
+					else
+					{
+						// on calcule la couleur du pixel
+						pixeliT->computeColor(_light, _shapes.at(bestID).get(), *pointIntersection);
+					}
+
+				}
+
+
+				free(cameraRay);
+				free(lightRay);
 				// si vector vide couleur pixel = background
 				// sinon garder le meilleur candidat
 				// calculer le point d'intersection
