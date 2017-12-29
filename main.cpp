@@ -36,9 +36,14 @@ int main()
 	double reflection = 0.3;
 
 	Sphere sphere1(sphereCenter, sphereColor, sphereRadius, reflection);
-	Scene scene("./scenes/scene1.sc");
+	Scene scene("./scenes/ex_world.txt");
+	scene.rendering();
 	scene.saveScene("./scenes/s.ppm");
 
+	// Pixel pixel(sphereCenter, sphereColor);
+	// std::cout << pixel << std::endl;
+	// pixel.setColor(Color(0,0,0));
+	// std::cout << pixel << std::endl;
 
 	// Scene scene("./scenes/scene1.sc");
 	// scene.rendering();

@@ -12,3 +12,8 @@ std::ostream& operator <<(std::ostream& os, const Camera& camera)
 	os << camera._screen;
 	return os;
 }
+
+void Camera::setColor(const Color& color, int verticalPos, int horizontalPos)
+{
+	_screen.setColor(color, verticalPos, horizontalPos);
+}

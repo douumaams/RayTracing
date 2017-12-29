@@ -22,35 +22,35 @@ double  Sphere::intersectionWithRay(const Ray& ray)
 
   if(discriminant < 0.0)
   {
-    std::cout << "false" << std::endl;
-    std::cout << "discriminant < 0.0" << std::endl;
+    // std::cout << "false" << std::endl;
+    // std::cout << "discriminant < 0.0" << std::endl;
     return -1.0;
   }
   else
   {
     double solution1 = ( - b - sqrt(discriminant) ) / (2 * a);
     double solution2 = ( - b + sqrt(discriminant) ) / (2 * a);
-    std::cout << "solution1 = " << solution1 << std::endl;
-    std::cout << "solution2 = " << solution2 << std::endl;
+    // std::cout << "solution1 = " << solution1 << std::endl;
+    // std::cout << "solution2 = " << solution2 << std::endl;
 
     if(solution1 >= 0.0) // t >= 0
     {
-      std::cout << "true" << std::endl;
-      std::cout << "solution1 >= 0.0" << std::endl;
+      // std::cout << "true" << std::endl;
+      // std::cout << "solution1 >= 0.0" << std::endl;
       return solution1;
     }
     else
     {
       if(solution2 >= 0.0) // t >= 0
       {
-        std::cout << "true" << std::endl;
-        std::cout << "solution2 >= 0.0" << std::endl;
+        // std::cout << "true" << std::endl;
+        // std::cout << "solution2 >= 0.0" << std::endl;
         return solution2;
       }
       else
       {
-        std::cout << "false" << std::endl;
-        std::cout << "solution1 <= 0.0 && solution2 <= 0.0" << std::endl;
+        // std::cout << "false" << std::endl;
+        // std::cout << "solution1 <= 0.0 && solution2 <= 0.0" << std::endl;
         return -1.0;
       }
     }

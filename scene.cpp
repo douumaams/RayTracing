@@ -164,32 +164,21 @@ void Scene::rendering()
 	5.b sinon pixel de couleur noir
 	*/
 
-	std::vector< std::vector<Pixel> >::iterator iT;
-	std::vector< Pixel >::iterator pixeliT;
-	//std::vector<std::unique_ptr<Shape>>::iterator shapeiT;
-
 	double t = -1;
 	std::vector<double> solutions;
 	std::vector<int> iDs;
 	int i = 0;
 	Ray* cameraRay;
 	Ray* lightRay;
-	int horizontalPos = 0;
-	int verticalPos = 0;
-	Screen camScreen = _camera.getScreen();
+
+	std::vector<std::vector<Pixel>>& pixels = _camera.getScreen().getPixels();
 
 	// on parcours chaque pixel
-	for (iT = camScreen.getPixels().begin(); iT != camScreen.getPixels().end(); iT++)
+	for (int k = 0; k < _camera.getScreen().getVerticalResolution(); k++)
 	{
-		verticalPos = iT - camScreen.getPixels().begin();
-
-		for (pixeliT = (*iT).begin(); pixeliT != (*iT).end(); pixeliT++)
+		for (int l = 0; l < _camera.getScreen().getHorizontalResultion(); l++)
 		{
-				//std::cout << (*i).getColor() << std::endl;
-				horizontalPos = pixeliT - (*iT).begin();
-				(*pixeliT).setPosition(camScreen.from2Dto3D(horizontalPos,verticalPos));
-				cameraRay = Ray::createRay(_camera.getPosition(), (*pixeliT).getPosition());
-
+				cameraRay = Ray::createRay(_camera.getPosition(), pixels[k][l].getPosition());
 				i = 0;
 				solutions.clear();
 				iDs.clear();
@@ -208,7 +197,7 @@ void Scene::rendering()
 				// s'il n'y a pas d'intersection le vecteur est de la couleur du background
 				if(solutions.empty())
 				{
-					pixeliT->setColor(camScreen.getBackgroundColor());
+					// on ne fait rien car les pixels sont initialies a la couleur du background
 				}
 				else
 				{
@@ -242,30 +231,21 @@ void Scene::rendering()
 						i++;
 					}
 
-					// il y a un obstacle entre la source et le point d'intersection
 					if(! solutions.empty())
 					{
-						// donc le pixel est noir
-						pixeliT->setColor(Color(0,0,0));
+						// il y a un obstacle entre la source et le point d'intersection donc le pixel est noir
+						_camera.getScreen().getPixels()[k][l].setColor(Color(0,0,0));
 					}
 					else
 					{
-						// on calcule la couleur du pixel
-						pixeliT->computeColor(_light, _shapes.at(bestID).get(), *pointIntersection);
+						// il n'y a pas d'obstacles donc on calcule la couleur du pixel
+						_camera.getScreen().getPixels()[k][l].computeColor(_light, _shapes.at(bestID).get(), *pointIntersection);
 					}
-
 				}
-
-
-				free(cameraRay);
-				free(lightRay);
-				// si vector vide couleur pixel = background
-				// sinon garder le meilleur candidat
-				// calculer le point d'intersection
-				// verifer intersection entre le P.I et la lumière
-				// si pas d'intersection computeColor (passer light en arg)
-				// sinon noir
 		}
+
 	}
 
+
+	//std::cout << _camera << std::endl;
 }

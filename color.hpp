@@ -17,6 +17,8 @@ public:
 	void setG(int g) { _g = g;};
 	void setB(int b) { _b = b;};
 
+	void bound();
+
 	friend Color operator*(const Color& c1, const Color& c2);
 
 	friend Color operator/(const Color& c1, double factor);

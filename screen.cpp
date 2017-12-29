@@ -31,6 +31,7 @@ std::ostream& operator <<(std::ostream& os, const Screen& screen)
 		{
 			os << screen._pixels[i][j] << " ";
 		}
+    os << std::endl;
 	}
 	return os;
 }
@@ -40,4 +41,9 @@ Point3D Screen::from2Dto3D(int x, int y)
 	Point3D horizontalOffset = ( _corners[TOP_RIGHT] - _corners[TOP_LEFT] ) / _horizontalRes;
 	Point3D verticalOffset = ( _corners[BOTTOM_LEFT] - _corners[TOP_LEFT] ) / ( _corners[BOTTOM_LEFT] - _corners[TOP_LEFT] ).getNorm() * horizontalOffset.getNorm();
 	return Point3D(_corners[TOP_LEFT] + x * horizontalOffset + y * verticalOffset);
+}
+
+void Screen::setColor(const Color& color, int verticalPos, int horizontalPos)
+{
+  _pixels[verticalPos][horizontalPos].setColor(color);
 }

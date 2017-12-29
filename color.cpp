@@ -46,8 +46,29 @@ Color operator/(double factor, const Color& c1)
 
 std::ostream& operator<<(std::ostream& os, const Color& p)
 {
-	os << p._r << " " << p._g << " " << p._b;
+	auto c = Color(p);
+	c.bound();
+	os << (uint32_t)c._r << " " << (uint32_t)c._g << " " << (uint32_t)c._b;
 	return os;
+}
+
+void Color::bound() {
+
+    // _r = min(_r, 255);
+    // _g = min(_g, 255);
+    // _b = min(_b, 255);
+		if(_r > 255)
+		{
+			_r = 255;
+		}
+		if(_g > 255)
+		{
+			_g = 255;
+		}
+		if(_b > 255)
+		{
+			_b = 255;
+		}
 }
 
 Color& Color::operator=(const Color& c1)

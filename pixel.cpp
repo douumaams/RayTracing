@@ -18,7 +18,9 @@ void Pixel::computeColor(const Light& light, Shape* shape, Point3D intersection)
   double alpha = intersectionRay->getAngle(*lightRay);
   Color newColor(cos(alpha) * light.getColor() * shape->getColor() / 255);
   _color = newColor;
-  std::cout << "Couleur : " << _color << std::endl;
+  //std::cout << "Couleur : " << _color << std::endl;
+  free(intersectionRay);
+  free(lightRay);
 }
 
 std::ostream& operator <<(std::ostream& os, const Pixel& pixel)
@@ -26,4 +28,3 @@ std::ostream& operator <<(std::ostream& os, const Pixel& pixel)
   os << pixel._color ;
   return os;
 }
-

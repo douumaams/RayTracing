@@ -17,7 +17,8 @@ class Camera
 
 	  friend std::ostream& operator <<(std::ostream& os, const Camera& camera);
 		Point3D getPosition() const {return _position;};
-		Screen getScreen() const { return _screen;};
+		Screen& getScreen() { return _screen;};
+		void setColor(const Color& color, int verticalPos, int horizontalPos);
 
 };
 

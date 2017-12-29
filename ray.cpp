@@ -37,7 +37,7 @@ double Ray::getAngle(const Ray& r)
 	//r.getDirection().normalize();
 
   double alpha = acos(_direction.scalarProduct(r.getDirection()));
-  std::cout << " alpha : " << alpha << std::endl;
+  std::cout << "alpha : " << alpha << std::endl;
   return alpha;
 }
 

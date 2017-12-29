@@ -6,7 +6,7 @@
 #include "ray.hpp"
 #include "light.hpp"
 #include "sphere.hpp"
-#include <memory>
+
 
 class Pixel
 {
