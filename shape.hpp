@@ -13,7 +13,7 @@ class Shape
 		Point3D getCenter() const { return _center; }
 		Color getColor() const { return _color; }
 		double getReflection() const { return _reflection; }
-		virtual bool intersectionWithRay(const Ray& ray) = 0;
+		virtual double intersectionWithRay(const Ray& ray) = 0;
 	private:
 		Point3D _center;
 		Color _color;

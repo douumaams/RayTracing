@@ -10,7 +10,7 @@ class Sphere : public Shape
 		Sphere(const Point3D& p, const Color& c, double reflection, double radius);
 		virtual ~Sphere();
 		double getRadius() const { return _radius; }
-		virtual bool intersectionWithRay(const Ray& ray);
+		virtual double intersectionWithRay(const Ray& ray);
 	private:
 		double _radius;
 

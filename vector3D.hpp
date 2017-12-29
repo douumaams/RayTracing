@@ -9,6 +9,7 @@ class Vector3D
 	private:
 		double _x, _y, _z;
 	public:
+		Vector3D() = default;
 		Vector3D(double x, double y, double z);
 		Vector3D(const Vector3D& v);
 		~Vector3D();
@@ -26,10 +27,15 @@ class Vector3D
 
 		friend Vector3D operator-(const Vector3D& v1, const Vector3D& v2);
 		friend Vector3D operator+(const Vector3D& v1, const Vector3D& v2);
-		//friend Vector3D operator*(const Vector3D& v1, const double factor);
+		friend Vector3D operator/(const Vector3D& v1, const Vector3D& v2);
 		friend Vector3D operator*(const Vector3D& v1, const Vector3D& v2);
-		//friend Vector3D operator/(const Vector3D& v1, const double factor);
 		friend std::ostream& operator<<(std::ostream& os, const Vector3D& v);
+
+		friend Vector3D operator/(const Vector3D& v1, double factor);
+		friend Vector3D operator*(const Vector3D& v1, double factor);
+		friend Vector3D operator/(double factor, const Vector3D& v1);
+		friend Vector3D operator*(double factor, const Vector3D& v1);
+		Vector3D& operator=(const Vector3D& v1);
 
 };
 

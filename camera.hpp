@@ -16,6 +16,7 @@ class Camera
 		virtual ~Camera();
 
 	    friend std::ostream& operator <<(std::ostream& os, const Camera& camera);
+		  Point3D getPosition() const {return _position;};
 
 };
 

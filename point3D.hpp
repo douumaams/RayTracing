@@ -7,7 +7,7 @@
 class Point3D
 {
 	private:
-		int _x, _y, _z;
+		double _x, _y, _z;
 	public:
 		Point3D() = default;
 		Point3D(Point3D const& p);
@@ -18,9 +18,17 @@ class Point3D
 		double getY() const {return _y;};
 		double getZ() const {return _z;};
 
-	friend Point3D operator-(const Point3D& p1, const Point3D& p2);
-	friend Point3D operator+(const Point3D& p1, const Point3D& p2);
-	friend std::ostream& operator<<(std::ostream& os, const Point3D& p);
+		friend Point3D operator-(const Point3D& v1, const Point3D& v2);
+		friend Point3D operator+(const Point3D& v1, const Point3D& v2);
+		friend Point3D operator/(const Point3D& v1, const Point3D& v2);
+		friend Point3D operator*(const Point3D& v1, const Point3D& v2);
+		friend std::ostream& operator<<(std::ostream& os, const Point3D& v);
+
+		friend Point3D operator/(const Point3D& v1, double factor);
+		friend Point3D operator*(const Point3D& v1, double factor);
+		friend Point3D operator/(double factor, const Point3D& v1);
+		friend Point3D operator*(double factor, const Point3D& v1);
+		Point3D& operator=(const Point3D& v1);
 };
 
 #endif

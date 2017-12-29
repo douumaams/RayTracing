@@ -1,9 +1,11 @@
 #include "scene.hpp"
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include "point3D.hpp"
 #include "color.hpp"
 #include "sphere.hpp"
+#include "pixel.hpp"
 
 Scene::Scene(const std::string& scene_name)
 {
@@ -80,6 +82,7 @@ int Scene::loadScene(const std::string& scene_name)
 						break;
 				default:
 						std::pair<std::string, std::vector<double>> shape = parseShape(line);
+						v = std::get<1>(shape);
 						if(std::get<0>(shape) == "sphere")
 						{
 							_shapes.push_back(std::unique_ptr<Shape>(new Sphere(Point3D(v.at(0), v.at(1), v.at(2)),
@@ -162,4 +165,41 @@ void Scene::rendering()
 	5.a si pas intersectionWithSource calcul de alpha et de la couleur du pixel
 	5.b sinon pixel de couleur noir
 	*/
+
+	std::vector< std::vector<Pixel> >::iterator iT;
+	std::vector< Pixel >::iterator pixeliT;
+	//std::vector<std::unique_ptr<Shape>>::iterator shapeiT;
+
+	for (iT = _screen.getPixels().begin(); iT != _screen.getPixels().end(); iT++)
+	{
+		for (pixeliT = (*iT).begin(); pixeliT != (*iT).end(); pixeliT++)
+		{
+				//std::cout << (*i).getColor() << std::endl;
+				int x = iT - _screen.getPixels().begin();
+				int y = pixeliT - (*iT).begin();
+				(*pixeliT).setPosition(_screen.from2Dto3D(x,y));
+				// Ray* cameraRay = Ray::createRay(_camera.getPosition(), (*pixeliT).getPosition());
+        //
+				// double t;
+				// std::vector<double> solutions;
+				// std::vector<int> iDs;
+				// for(int i = 0; i < _shapes.size(); i++)
+				// {
+				// 	t = _shapes.at(i).intersectionWithRay(*cameraRay);
+				// 	if(t >= 0)
+				// 	{
+				// 		solutions.push_back(t);
+				// 		iDs.push_back(shapeiT - _shapes.begin());
+				// 	}
+				// }
+
+				// si vector vide couleur pixel = background
+				// sinon garder le meilleur candidat
+				// calculer le point d'intersection
+				// verifer intersection entre le P.I et la lumière
+				// si pas d'intersection computeColor (passer light en arg)
+				// sinon noir
+		}
+	}
+
 }
