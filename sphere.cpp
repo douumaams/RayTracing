@@ -28,8 +28,10 @@ double  Sphere::intersectionWithRay(const Ray& ray)
   }
   else
   {
-    double solution1 = ( - b - sqrt(discriminant) ) / (2 * a);
-    double solution2 = ( - b + sqrt(discriminant) ) / (2 * a);
+    double solution1 = ( - b - sqrt(discriminant) ) / 2 / a - 1e-6;
+    double solution2 = ( - b + sqrt(discriminant) ) / 2 /  a - 1e-6;
+
+
     // std::cout << "solution1 = " << solution1 << std::endl;
     // std::cout << "solution2 = " << solution2 << std::endl;
 

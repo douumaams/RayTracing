@@ -171,14 +171,15 @@ void Scene::rendering()
 	Ray* cameraRay;
 	Ray* lightRay;
 
-	std::vector<std::vector<Pixel>>& pixels = _camera.getScreen().getPixels();
+	//std::vector<std::vector<Pixel>>& pixels = _camera.getScreen().getPixels();
 
 	// on parcours chaque pixel
 	for (int k = 0; k < _camera.getScreen().getVerticalResolution(); k++)
 	{
 		for (int l = 0; l < _camera.getScreen().getHorizontalResultion(); l++)
 		{
-				cameraRay = Ray::createRay(_camera.getPosition(), pixels[k][l].getPosition());
+				cameraRay = Ray::createRay(_camera.getPosition(), _camera.getScreen().getPixels()[k][l].getPosition());
+
 				i = 0;
 				solutions.clear();
 				iDs.clear();
@@ -215,8 +216,13 @@ void Scene::rendering()
 					}
 
 					const Point3D* pointIntersection(cameraRay->computeIntersection(bestSolution));
+					std::cout << "x : " << l << "y : " << k << std::endl;
+					std::cout << "bestSolution : " << bestSolution << std::endl;
+					std::cout << "bestID : " << bestID << std::endl;
+					std::cout << *pointIntersection << "\n" << std::endl;
 					// on teste l'intersection avec la source
 					lightRay = Ray::createRay(*pointIntersection, _light.getPosition());
+
 					i = 0;
 					solutions.clear();
 					iDs.clear();
@@ -225,6 +231,7 @@ void Scene::rendering()
 						t = (*shapeiT).intersectionWithRay(*lightRay);
 						if(t >= 0)
 						{
+
 							solutions.push_back(t);
 							iDs.push_back(i);
 						}

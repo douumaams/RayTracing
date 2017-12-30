@@ -29,7 +29,7 @@ std::ostream& operator <<(std::ostream& os, const Screen& screen)
 	{
 		for (int j = 0; j < screen.getHorizontalResultion(); j++)
 		{
-			os << screen._pixels[i][j] << " ";
+			os << screen._pixels[j][i] << " ";
 		}
     os << std::endl;
 	}
