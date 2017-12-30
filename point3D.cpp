@@ -5,7 +5,7 @@ _x(p._x), _y(p._y), _z(p._z)
 {}
 
 
-Point3D::Point3D(int xx, int yy, int zz):
+Point3D::Point3D(double xx, double yy, double zz):
 _x(xx), _y(yy), _z(zz)
 {}
 

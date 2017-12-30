@@ -36,7 +36,7 @@ int main()
 	double reflection = 0.3;
 
 	Sphere sphere1(sphereCenter, sphereColor, sphereRadius, reflection);
-	Scene scene("./scenes/ex_world.txt");
+	Scene scene("./scenes/scene1.sc");
 	scene.rendering();
 	scene.saveScene("./scenes/s.ppm");
 
