@@ -16,7 +16,7 @@ double  Sphere::intersectionWithRay(const Ray& ray)
 
   double a = pow(rayDirection.getX(), 2) + pow(rayDirection.getY(), 2) + pow(rayDirection.getZ(), 2);
   double b = 2 * ( rayDirection.getX()*(rayOrigin.getX() - getCenter().getX()) + rayDirection.getY()*(rayOrigin.getY() - getCenter().getY()) + rayDirection.getZ()*(rayOrigin.getZ() - getCenter().getZ()));
-  double c = pow((rayOrigin.getX() - getCenter().getX()), 2) + pow((rayOrigin.getY() - getCenter().getY()), 2) + pow((rayOrigin.getZ() - getCenter().getZ()), 2) - pow(getRadius(), 2);
+  double c = pow((rayOrigin.getX() - getCenter().getX()), 2) + pow((rayOrigin.getY() - getCenter().getY()), 2) + pow((rayOrigin.getZ() - getCenter().getZ()), 2) - getRadius();
 
   double discriminant = pow(b, 2) - (4 * a * c);
 

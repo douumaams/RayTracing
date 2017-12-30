@@ -216,10 +216,6 @@ void Scene::rendering()
 					}
 
 					const Point3D* pointIntersection(cameraRay->computeIntersection(bestSolution));
-					std::cout << "x : " << l << "y : " << k << std::endl;
-					std::cout << "bestSolution : " << bestSolution << std::endl;
-					std::cout << "bestID : " << bestID << std::endl;
-					std::cout << *pointIntersection << "\n" << std::endl;
 					// on teste l'intersection avec la source
 					lightRay = Ray::createRay(*pointIntersection, _light.getPosition());
 
