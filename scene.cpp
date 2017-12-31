@@ -23,9 +23,6 @@ int Scene::error(std::string function, std::string msg)
 
 int Scene::loadScene(const std::string& scene_name)
 {
-	// if(scene_name == NULL)
-	// 	return error("[Scene::load_scene]","file null");
-
 	std::ifstream reader;
 	reader.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
@@ -111,10 +108,6 @@ int Scene::loadScene(const std::string& scene_name)
 }
 
 
-/*
-*
-*
-*/
 std::vector<double> Scene::parseInt(std::string line)
 {
 	std::vector<double> return_value;
@@ -140,16 +133,99 @@ std::pair<std::string, std::vector<double>> Scene::parseShape(std::string line)
 	return make_pair(line.substr(0, str), parseInt(line.substr(str + 1)));
 }
 
-int Scene::saveScene(const std::string& scene_name) // pourquoi pas void ?? =)
+void Scene::saveScene(const std::string& scene_name)
 {
     std::ofstream os(scene_name);
 
     os << "P3" << std::endl;
     os << _camera;
+}
 
-    // os.close();
+std::pair<double, int> Scene::findNearestIntersection(const Ray& ray)
+{
+	double t = -1;
+	int i = 0;
+	std::vector<double> intersections;
+	std::vector<int> shapeIDs;
 
-	return 0;
+	for(auto& shapeiT : _shapes )
+	{
+		t = (*shapeiT).intersectionWithRay(ray);
+		if(t >= 0)
+		{
+			intersections.push_back(t);
+			shapeIDs.push_back(i);
+		}
+		i++;
+	}
+
+	if(intersections.empty())
+	{
+		return std::make_pair(-1, -1);
+	}
+
+	double bestSolution = intersections.at(0);
+	int bestID = shapeIDs.at(0);
+
+	for(size_t j = 1; j < intersections.size(); j++)
+	{
+		if(intersections.at(j) < bestSolution)
+		{
+			bestSolution = intersections.at(j);
+			bestID = shapeIDs.at(j);
+		}
+	}
+
+	return std::make_pair(bestSolution, bestID);
+
+}
+
+Color Scene::computeColor(int x, int y, int stoppingCriterion, Shape* shape, Ray incidentRay, Point3D intersection)
+{
+	if(stoppingCriterion < 0)
+  {
+    return Color(0,0,0);
+  }
+
+  Ray* normalRay = Ray::createRay(shape->getCenter(), intersection);
+  Ray* lightRay = Ray::createRay(intersection, _light.getPosition());
+  double cosAlpha = cos(normalRay->getAngle(*lightRay));
+	std::pair<double, int> result;
+	double bestSolution;
+	int bestID;
+
+	if(cosAlpha < 0)
+	{
+		cosAlpha = - cosAlpha;
+	}
+
+  normalRay->getDirection().normalize();
+  Vector3D* normal = Vector3D::createVector(shape->getCenter(), intersection);
+  normal->normalize();
+
+  Ray refRay(incidentRay.reflectedRay(intersection, *normal));
+
+
+	result = findNearestIntersection(refRay);
+	bestSolution = std::get<0>(result);
+	bestID = std::get<1>(result);
+
+	if(bestSolution >= 0)
+	{
+		Color Cr(computeColor(x,y, stoppingCriterion-1, _shapes.at(bestID).get(), refRay, *normalRay->computeIntersection(bestSolution)));
+    Color newColor((1 - shape->getReflection()) * cosAlpha * _light.getColor() * shape->getColor() / 255 + shape->getReflection() * Cr);
+    getPixel(x,y).setColor(newColor);
+
+    delete(normalRay);
+    delete(lightRay);
+    return newColor;
+	}
+
+  delete(normalRay);
+  delete(lightRay);
+
+  getPixel(x,y).setColor((1 - shape->getReflection()) * cosAlpha * _light.getColor() * shape->getColor() / 255);
+  return Color((1 - shape->getReflection()) * cosAlpha * _light.getColor() * shape->getColor() / 255);
 }
 
 void Scene::rendering()
@@ -164,102 +240,47 @@ void Scene::rendering()
 	5.b sinon pixel de couleur noir
 	*/
 
-	double t = -1;
-	std::vector<double> solutions;
-	std::vector<int> iDs;
-	int i = 0;
 	Ray* cameraRay;
 	Ray* lightRay;
-
-	//std::vector<std::vector<Pixel>>& pixels = _camera.getScreen().getPixels();
+	std::pair<double, int> result;
+	double bestSolution2;
+	int bestID2;
 
 	// on parcours chaque pixel
 	for (int k = 0; k < _camera.getScreen().getVerticalResolution(); k++)
 	{
 		for (int l = 0; l < _camera.getScreen().getHorizontalResultion(); l++)
 		{
-				cameraRay = Ray::createRay(_camera.getPosition(), _camera.getScreen().getPixels()[k][l].getPosition());
+				cameraRay = Ray::createRay(_camera.getPosition(), getPixel(k,l).getPosition());
 
-				i = 0;
-				solutions.clear();
-				iDs.clear();
-				// pour chaque sphere on stocke l'intersection dans un vector et l'id de la sphere
-				for(auto& shapeiT : _shapes )
-				{
-					t = (*shapeiT).intersectionWithRay(*cameraRay);
-					if(t >= 0)
-					{
-						solutions.push_back(t);
-						iDs.push_back(i);
-					}
-					i++;
-				}
+				result = findNearestIntersection(*cameraRay);
+				bestSolution2 = std::get<0>(result);
+				bestID2 = std::get<1>(result);
 
-				// s'il n'y a pas d'intersection le vecteur est de la couleur du background
-				if(solutions.empty())
+				if(bestSolution2 < 0) // il n'y a pas d'intersections
 				{
 					// on ne fait rien car les pixels sont initialies a la couleur du background
 				}
 				else
 				{
-					// sinon on garde le point d'intersection et l'iD de la sphere la plus proche
-					double bestSolution = solutions.at(0);
-					int bestID = iDs.at(0);
+					const Point3D* pointIntersection(cameraRay->computeIntersection(bestSolution2));
 
-					for(size_t j = 1; j < solutions.size(); j++)
-					{
-						if(solutions.at(j) < bestSolution)
-						{
-							bestSolution = solutions.at(j);
-							bestID = iDs.at(j);
-						}
-					}
-
-					const Point3D* pointIntersection(cameraRay->computeIntersection(bestSolution));
-					// on teste l'intersection avec la source
 					lightRay = Ray::createRay(*pointIntersection, _light.getPosition());
 
-					i = 0;
-					solutions.clear();
-					iDs.clear();
-					for(auto& shapeiT : _shapes )
-					{
-						t = (*shapeiT).intersectionWithRay(*lightRay);
-						if(t >= 0)
-						{
+					result = findNearestIntersection(*lightRay); // on teste l'intersection avec la source
+					bestSolution2 = std::get<0>(result);
 
-							solutions.push_back(t);
-							iDs.push_back(i);
-						}
-						i++;
-					}
-
-					if(! solutions.empty())
+					if(bestSolution2 >= 0)
 					{
 						// il y a un obstacle entre la source et le point d'intersection donc le pixel est noir
-						_camera.getScreen().getPixels()[k][l].setColor(Color(0,0,0));
+						getPixel(k,l).setColor(Color(0,0,0));
 					}
 					else
 					{
-						// il n'y a pas d'obstacles donc on calcule la couleur du pixel
-						_camera.getScreen().getPixels()[k][l].computeColor(_light, _shapes.at(bestID).get(), *pointIntersection, 1, _shapes, *cameraRay, k, l);
-						//_camera.getScreen().getPixels()[k][l].getColor().bound();
+						computeColor(k,l,1,_shapes.at(bestID2).get(), *cameraRay, *pointIntersection);
 					}
-				}
-				if(_camera.getScreen().getPixels()[k][l].getColor() == _camera.getScreen().getBackgroundColor())
-				{
-
-				}
-				else
-				{
-					std::cout << "k : " << k << "    ";
-					std::cout << "l : " << l << "    ";
-					std::cout << _camera.getScreen().getPixels()[k][l].getColor() << std::endl;
 				}
 		}
 
 	}
-
-
-	//std::cout << _camera << std::endl;
 }

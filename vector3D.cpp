@@ -64,15 +64,6 @@ Vector3D operator*(double factor, const Vector3D& v1)
 	return v1 * factor;
 }
 
-Vector3D operator/(double factor, const Vector3D& v1)
-{
-	Vector3D returnValue;
-	returnValue._x = factor / v1._x;
-	returnValue._y = factor /v1._y;
-	returnValue._z = factor / v1._z ;
-	return returnValue;
-}
-
 
 Vector3D operator/(const Vector3D& v1, const Vector3D& v2)
 {

@@ -10,6 +10,7 @@ class Camera
 	private:
 		Point3D _position;
 		Screen _screen;
+
 	public:
 		Camera() = default;
 		Camera(Point3D position, Point3D top_left, Point3D top_right, Point3D bottom_left, int horizontal_res, Color background);
@@ -18,7 +19,8 @@ class Camera
 	  friend std::ostream& operator <<(std::ostream& os, const Camera& camera);
 		Point3D getPosition() const {return _position;};
 		Screen& getScreen() { return _screen;};
-		void setColor(const Color& color, int verticalPos, int horizontalPos);
+
+		Pixel& getPixel(int x, int y) { return _screen.getPixel(x,y);};
 
 };
 

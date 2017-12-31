@@ -34,11 +34,12 @@ int main()
 	// Color sphereColor(250,0,0);
 	// double sphereRadius = 7;
 	// double reflection = 0.3;
+	// testOperatorEQ();
 
 	//Sphere sphere1(sphereCenter, sphereColor, sphereRadius, reflection);
 	Scene scene("./scenes/scene1.sc");
 	scene.rendering();
-	scene.saveScene("./scenes/sc1.ppm");
+	scene.saveScene("./scenes/la.ppm");
 
 	// Pixel pixel(sphereCenter, sphereColor);
 	// std::cout << pixel << std::endl;

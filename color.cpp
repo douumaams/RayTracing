@@ -5,20 +5,21 @@ Color::Color(Color const& c):_r(c._r), _g(c._g), _b(c._b) {}
 
 Color::Color(int rr, int gg, int bb): _r(rr), _g(gg), _b(bb) {}
 
+void Color::rGBLimit()
+{
+			_r = MAX(0, MIN(_r, 255));
+			_g = MAX(0, MIN(_g, 255));
+			_b = MAX(0, MIN(_b, 255));
+}
 
 Color operator*(const Color& c1, const Color& c2)
 {
 	return Color(c1._r * c2._r, c1._g * c2._g, c1._b * c2._b);
 }
 
-
 Color operator*(const Color& c1, double factor)
 {
-	Color returnValue;
-	returnValue._r = c1._r * factor;
-	returnValue._g = c1._g * factor;
-	returnValue._b = c1._b * factor;
-	return returnValue;
+	return Color(c1._r * factor, c1._g * factor, c1._b * factor);
 }
 
 Color operator*(double factor, const Color& c1)
@@ -28,20 +29,7 @@ Color operator*(double factor, const Color& c1)
 
 Color operator/(const Color& c1, double factor)
 {
-	Color returnValue;
-	returnValue._r = c1._r / factor;
-	returnValue._g = c1._g / factor;
-	returnValue._b = c1._b / factor;
-	return returnValue;
-}
-
-Color operator/(double factor, const Color& c1)
-{
-	Color returnValue;
-	returnValue._r = factor / c1._r;
-	returnValue._g = factor / c1._g;
-	returnValue._b = factor / c1._b;
-	return returnValue;
+	return Color(c1._r / factor, c1._g / factor, c1._b / factor);
 }
 
 Color operator+(const Color& c1, const Color& c2)
@@ -52,7 +40,7 @@ Color operator+(const Color& c1, const Color& c2)
 std::ostream& operator<<(std::ostream& os, const Color& p)
 {
 	auto c = Color(p);
-	c.bound();
+	c.rGBLimit();
 	os << (uint32_t)c._r << " " << (uint32_t)c._g << " " << (uint32_t)c._b;
 	return os;
 }
@@ -60,37 +48,6 @@ std::ostream& operator<<(std::ostream& os, const Color& p)
 bool operator==(const Color& c1, const Color& c2)
 {
 	return c1._r == c2._r && c1._g == c2._g && c1._b == c2._b;
-}
-
-void Color::bound() {
-
-    // _r = min(_r, 255);
-    // _g = min(_g, 255);
-    // _b = min(_b, 255);
-		if(_r > 255)
-		{
-			_r = 255;
-		}
-		if(_g > 255)
-		{
-			_g = 255;
-		}
-		if(_b > 255)
-		{
-			_b = 255;
-		}
-		// if(_r < 0)
-		// {
-		// 	_r = 0;
-		// }
-		// if(_g < 0)
-		// {
-		// 	_g = 0;
-		// }
-		// if(_b < 0)
-		// {
-		// 	_b = 0;
-		// }
 }
 
 Color& Color::operator=(const Color& c1)

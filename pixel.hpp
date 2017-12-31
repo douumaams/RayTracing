@@ -10,19 +10,15 @@
 
 class Pixel
 {
-private: // soit on met qu'un pixel est un point ou on fait une compostion a nous de choisir les deux methods sont bonnes
+	private:
 	Color _color;
 	Point3D _position;
-	/*Ray _raySphere;
-	Ray _raySource;*/
 
-public:
+	public:
 	Pixel() = default;
 	Pixel(const Point3D& p, const Color& c);
 	~Pixel(){};
 
-	/* data */
-	Color computeColor(const Light& light, Shape* shape, Point3D intersection, int stoppingCriterion, std::vector<std::unique_ptr<Shape>>& shapes, Ray incidentRay, int k, int l); // calcul la couleur du pixel
 	Color getColor() const { return _color;};
 	void setColor(const Color& color) { _color = color;};
 

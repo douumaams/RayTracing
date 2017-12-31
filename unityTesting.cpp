@@ -37,10 +37,9 @@ void testOperatorMULT()
 void testOperatorDIV()
 {
 	Vector3D v1(2, 2, 5), v2(4, 4, 10);
-	assert((2 / v1) == Vector3D(1, 1, 0.4));
 	assert((v1 / 2) == Vector3D(1, 1, 2.5));
 	assert((v1 / v2) == Vector3D(0.5, 0.5, 0.5));
-	std::cout << "Operator '/' OK" << std::endl;	
+	std::cout << "Operator '/' OK" << std::endl;
 }
 
 void testOperatorPLUS()
@@ -65,3 +64,37 @@ void testVectorNorm()
 	// assert(v.getNorm() == Vector3D())
 }
 
+void testIntersectionWithRay(void)
+{
+
+}
+
+void testScalarProduct(void)
+{
+
+}
+
+void testReflectedRay(void)
+{
+
+}
+
+void testGetAngle(void)
+{
+
+}
+
+void testComputeIntersection(void)
+{
+
+}
+
+void testCreateRay(void)
+{
+
+}
+
+void testNormalize(void)
+{
+	
+}

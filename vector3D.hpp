@@ -14,7 +14,7 @@ class Vector3D
 		Vector3D(double x, double y, double z);
 		Vector3D(const Vector3D& v);
 		~Vector3D();
-		// double getNorm(){ return sqrt(pow(_x,2) + pow(_y,2) + pow(_z,2));}
+
 		double getX() const {return _x;};
 		double getY() const {return _y;};
 		double getZ() const {return _z;};
@@ -37,7 +37,6 @@ class Vector3D
 		friend std::ostream& operator<<(std::ostream& os, const Vector3D& v);
 
 		friend Vector3D operator/(const Vector3D& v1, double factor);
-		friend Vector3D operator/(double factor, const Vector3D& v1);
 		friend Vector3D operator*(const Vector3D& v1, double factor);
 		friend Vector3D operator*(double factor, const Vector3D& v1);
 		Vector3D& operator=(const Vector3D& v1);

@@ -9,7 +9,7 @@
 #include "light.hpp"
 #include "shape.hpp"
 #include "camera.hpp"
-#include <memory> // for unique_ptr
+#include <memory> // utile pour unique_ptr
 
 #define CAMERA_POSITION 0
 #define TOP_LEFT_CORNER 1
@@ -28,26 +28,25 @@ class Scene
 		Light _light;
 		std::vector<std::unique_ptr<Shape>> _shapes;
 
-		//void parseLine();
 		int error(std::string function, std::string msg);
 
 	public:
 		Scene(const std::string& scene_name);
 		virtual ~Scene();
 		int loadScene(const std::string& scene_name);
-		int saveScene(const std::string& scene_name);
-		Camera getCamera() const { return _camera; }
-		Light getLight() const { return (_light); }
-		//Color computeColor(int x, int y, int stoppingCriterion);
-		// explicit Scene();
-    // Scene(const Scene&) = delete;
-    // Scene& operator=(const Scene&) = delete;
-    // ~Scene() = default;
+		void saveScene(const std::string& scene_name);
 
 		void rendering();
-		// std::map<std::string, std::vector<double>> parseShape(std::string line);
 		std::pair<std::string, std::vector<double>> parseShape(std::string line);
 		std::vector<double> parseInt(std::string line);
+
+		Color computeColor(int x, int y, int stoppingCriterion, Shape* shape, Ray incidentRay, Point3D intersection);
+
+		std::pair<double, int> findNearestIntersection(const Ray& ray);
+
+		Camera getCamera() const { return _camera; };
+		Light getLight() const { return _light; };
+		Pixel& getPixel(int x, int y) { return _camera.getPixel(x,y);};
 
 };
 

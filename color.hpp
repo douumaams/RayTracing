@@ -3,10 +3,15 @@
 
 #include <ostream>
 #include <cstdint>
+
+#define MAX(x,y) (x > y ? x : y)
+#define MIN(x,y) (x < y ? x : y)
+
 class Color
 {
 private:
 	int _r, _g, _b;
+
 public:
 	Color() = default;
 	Color(Color const& c);
@@ -17,13 +22,12 @@ public:
 	void setG(int g) { _g = g;};
 	void setB(int b) { _b = b;};
 
-	void bound();
+	void rGBLimit();
 
 	friend Color operator*(const Color& c1, const Color& c2);
 
 	friend Color operator/(const Color& c1, double factor);
 	friend Color operator*(const Color& c1, double factor);
-	friend Color operator/(double factor, const Color& c1);
 	friend Color operator*(double factor, const Color& c1);
 	friend Color operator+(const Color& c1, const Color& c2);
 	friend bool operator==(const Color& c1, const Color& c2);

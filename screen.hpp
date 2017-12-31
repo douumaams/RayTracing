@@ -17,7 +17,6 @@ class Screen
 	private:
 		Point3D _corners[3];
 		int _horizontalRes;
-		int _verticalRes;
 		Color _background_color;
 		std::vector<std::vector<Pixel>> _pixels;
 
@@ -25,16 +24,18 @@ class Screen
 		Screen() = default;
 		Screen(Point3D top_left, Point3D top_right, Point3D bottom_left, int horizontal_res, Color background);
 		virtual ~Screen(){};
+
+		Point3D from2Dto3D(int x, int y);
+
 		int getVerticalResolution() const { return _pixels.size();}
 		int getHorizontalResultion() const {return _pixels[0].size();}
 		void setColor(const Color& color, int verticalPos, int horizontalPos);
 
 		std::vector<std::vector<Pixel>>& getPixels() { return _pixels;};
 		Color getBackgroundColor() const {return _background_color;};
+		Pixel& getPixel(int x, int y) {return _pixels[x][y];};
 
 		friend std::ostream& operator <<(std::ostream& os, const Screen& screen);
-		Point3D from2Dto3D(int x, int y);
-
 };
 
 

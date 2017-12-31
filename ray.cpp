@@ -3,7 +3,7 @@
 #include <iostream>
 
 Ray::Ray(const Point3D& origin, const Vector3D& direction) :
-_origin(origin), _direction(direction), _shapeID(-1)
+_origin(origin), _direction(direction)
 {}
 
 Ray::~Ray(){}
@@ -11,9 +11,7 @@ Ray::~Ray(){}
 Ray* Ray::createRay(const Point3D& origin, const Point3D& arrival)
 {
   double dx = arrival.getX() - origin.getX();
-
   double dy = arrival.getY() - origin.getY();
-
   double dz = arrival.getZ() - origin.getZ();
 
   Vector3D direction(dx, dy, dz);
@@ -22,21 +20,10 @@ Ray* Ray::createRay(const Point3D& origin, const Point3D& arrival)
   return new Ray(origin, direction);
 }
 
-std::ostream& operator<<(std::ostream& os, const Ray& ray)
-{
-  os << "Origin : " << ray._origin << " Direction : " << ray._direction << std::endl;
-  return os;
-}
-
 double Ray::getAngle(const Ray& r)
 {
-	//_direction.normalize();
-	//r.getDirection().normalize();
-
-  double alpha = acos(_direction.scalarProduct(r.getDirection()));
-  //std::cout << "alpha : " << alpha << std::endl;
-
-  return alpha;
+	r.getDirection().normalize();
+  return acos(_direction.scalarProduct(r.getDirection()));
 }
 
 const Point3D* Ray::computeIntersection(const double t)
@@ -50,6 +37,12 @@ const Point3D* Ray::computeIntersection(const double t)
 
 Ray Ray::reflectedRay(const Point3D& origin, const Vector3D& normal)
 {
-  // _direction.normalize();
+  _direction.normalize();
   return Ray(origin, _direction - 2 * (_direction.scalarProduct(normal) * normal));
+}
+
+std::ostream& operator<<(std::ostream& os, const Ray& ray)
+{
+  os << "Origin : " << ray._origin << " Direction : " << ray._direction << std::endl;
+  return os;
 }
