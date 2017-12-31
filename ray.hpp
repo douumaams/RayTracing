@@ -24,6 +24,7 @@ class Ray
 
     double getAngle(const Ray& r); // calcul l'angle entre ce vecteur et r
     const Point3D* computeIntersection(const double t);
+    Ray reflectedRay(const Point3D& origin, const Vector3D& normal);
 
     friend std::ostream& operator<<(std::ostream& os, const Ray& ray);
     Vector3D getDirection() const {return _direction;};

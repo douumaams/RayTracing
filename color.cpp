@@ -44,12 +44,22 @@ Color operator/(double factor, const Color& c1)
 	return returnValue;
 }
 
+Color operator+(const Color& c1, const Color& c2)
+{
+	return Color(c1._r + c2._r, c1._g + c2._g, c1._b + c2._b);
+}
+
 std::ostream& operator<<(std::ostream& os, const Color& p)
 {
 	auto c = Color(p);
 	c.bound();
 	os << (uint32_t)c._r << " " << (uint32_t)c._g << " " << (uint32_t)c._b;
 	return os;
+}
+
+bool operator==(const Color& c1, const Color& c2)
+{
+	return c1._r == c2._r && c1._g == c2._g && c1._b == c2._b;
 }
 
 void Color::bound() {
@@ -69,6 +79,18 @@ void Color::bound() {
 		{
 			_b = 255;
 		}
+		// if(_r < 0)
+		// {
+		// 	_r = 0;
+		// }
+		// if(_g < 0)
+		// {
+		// 	_g = 0;
+		// }
+		// if(_b < 0)
+		// {
+		// 	_b = 0;
+		// }
 }
 
 Color& Color::operator=(const Color& c1)

@@ -35,6 +35,7 @@ double Ray::getAngle(const Ray& r)
 
   double alpha = acos(_direction.scalarProduct(r.getDirection()));
   //std::cout << "alpha : " << alpha << std::endl;
+
   return alpha;
 }
 
@@ -45,4 +46,10 @@ const Point3D* Ray::computeIntersection(const double t)
   double z = _origin.getZ() + t * _direction.getZ();
 
   return new Point3D(x,y,z);
+}
+
+Ray Ray::reflectedRay(const Point3D& origin, const Vector3D& normal)
+{
+  // _direction.normalize();
+  return Ray(origin, _direction - 2 * (_direction.scalarProduct(normal) * normal));
 }

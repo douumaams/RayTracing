@@ -38,7 +38,7 @@ class Scene
 		int saveScene(const std::string& scene_name);
 		Camera getCamera() const { return _camera; }
 		Light getLight() const { return (_light); }
-
+		//Color computeColor(int x, int y, int stoppingCriterion);
 		// explicit Scene();
     // Scene(const Scene&) = delete;
     // Scene& operator=(const Scene&) = delete;

@@ -22,6 +22,17 @@ double Vector3D::scalarProduct(const Vector3D& v)
 	return (this->_x * v.getX()) + (this->_y * v.getY()) + (this->_z * v.getZ());
 }
 
+Vector3D* Vector3D::createVector(const Point3D& origin, const Point3D& arrival)
+{
+  double dx = arrival.getX() - origin.getX();
+
+  double dy = arrival.getY() - origin.getY();
+
+  double dz = arrival.getZ() - origin.getZ();
+
+  return new Vector3D(dx, dy, dz);
+}
+
 
 bool operator==(const Vector3D& v1, const Vector3D& v2)
 {

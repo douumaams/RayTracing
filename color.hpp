@@ -2,7 +2,7 @@
 #define __COLOR_HPP__
 
 #include <ostream>
-
+#include <cstdint>
 class Color
 {
 private:
@@ -25,6 +25,8 @@ public:
 	friend Color operator*(const Color& c1, double factor);
 	friend Color operator/(double factor, const Color& c1);
 	friend Color operator*(double factor, const Color& c1);
+	friend Color operator+(const Color& c1, const Color& c2);
+	friend bool operator==(const Color& c1, const Color& c2);
 
 	friend std::ostream& operator<<(std::ostream& os, const Color& c);
 

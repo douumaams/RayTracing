@@ -9,7 +9,7 @@ Shape(p, c, reflection), _radius(radius)
 Sphere::~Sphere(){}
 
 
-double  Sphere::intersectionWithRay(const Ray& ray)
+double Sphere::intersectionWithRay(const Ray& ray)
 {
   Vector3D rayDirection(ray.getDirection());
   Point3D rayOrigin(ray.getOrigin());

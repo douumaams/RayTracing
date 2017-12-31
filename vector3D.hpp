@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <ostream>
+#include "point3D.hpp"
 
 class Vector3D
 {
@@ -20,6 +21,8 @@ class Vector3D
 
 		double getNorm() const { return sqrt(pow(_x, 2) + pow(_y, 2) + pow(_z, 2));}
 		double scalarProduct(const Vector3D& v);
+
+		static Vector3D* createVector(const Point3D& origin, const Point3D& arrival);
 
 		void normalize() { divide(getNorm()); };
 		void multiply(const double factor) { _x *= factor; _y *= factor; _z *= factor;};

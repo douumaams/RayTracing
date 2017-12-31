@@ -242,8 +242,19 @@ void Scene::rendering()
 					else
 					{
 						// il n'y a pas d'obstacles donc on calcule la couleur du pixel
-						_camera.getScreen().getPixels()[k][l].computeColor(_light, _shapes.at(bestID).get(), *pointIntersection);
+						_camera.getScreen().getPixels()[k][l].computeColor(_light, _shapes.at(bestID).get(), *pointIntersection, 1, _shapes, *cameraRay, k, l);
+						//_camera.getScreen().getPixels()[k][l].getColor().bound();
 					}
+				}
+				if(_camera.getScreen().getPixels()[k][l].getColor() == _camera.getScreen().getBackgroundColor())
+				{
+
+				}
+				else
+				{
+					std::cout << "k : " << k << "    ";
+					std::cout << "l : " << l << "    ";
+					std::cout << _camera.getScreen().getPixels()[k][l].getColor() << std::endl;
 				}
 		}
 

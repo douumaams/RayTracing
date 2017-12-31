@@ -29,16 +29,16 @@ int main()
   //
 	// Ray* r3 = Ray::createRay(p2, p1);
 	// cout << *r3 << std::endl;
+  //
+	// Point3D sphereCenter(90,90,60);
+	// Color sphereColor(250,0,0);
+	// double sphereRadius = 7;
+	// double reflection = 0.3;
 
-	Point3D sphereCenter(90,90,60);
-	Color sphereColor(250,0,0);
-	double sphereRadius = 7;
-	double reflection = 0.3;
-
-	Sphere sphere1(sphereCenter, sphereColor, sphereRadius, reflection);
-	Scene scene("./scenes/single_sphere.txt");
+	//Sphere sphere1(sphereCenter, sphereColor, sphereRadius, reflection);
+	Scene scene("./scenes/scene1.sc");
 	scene.rendering();
-	scene.saveScene("./scenes/single_sphere.ppm");
+	scene.saveScene("./scenes/sc1.ppm");
 
 	// Pixel pixel(sphereCenter, sphereColor);
 	// std::cout << pixel << std::endl;

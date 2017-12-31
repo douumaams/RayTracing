@@ -6,7 +6,7 @@
 #include "ray.hpp"
 #include "light.hpp"
 #include "sphere.hpp"
-
+#include <memory>
 
 class Pixel
 {
@@ -22,7 +22,7 @@ public:
 	~Pixel(){};
 
 	/* data */
-	void computeColor(const Light& light, Shape* shape, Point3D intersection); // calcul la couleur du pixel
+	Color computeColor(const Light& light, Shape* shape, Point3D intersection, int stoppingCriterion, std::vector<std::unique_ptr<Shape>>& shapes, Ray incidentRay, int k, int l); // calcul la couleur du pixel
 	Color getColor() const { return _color;};
 	void setColor(const Color& color) { _color = color;};
 
